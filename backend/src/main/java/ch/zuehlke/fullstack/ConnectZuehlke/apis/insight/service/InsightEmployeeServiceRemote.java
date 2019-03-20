@@ -16,7 +16,7 @@ import static java.util.stream.Collectors.toList;
 import static org.springframework.http.HttpMethod.GET;
 
 @Service
-@Profile({"prod", "staging"})
+@Profile({"prod", "staging", "dev"})
 public class InsightEmployeeServiceRemote implements InsightEmployeeService {
     private final RestTemplate insightRestTemplate;
 

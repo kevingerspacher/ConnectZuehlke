@@ -23,7 +23,7 @@ import org.springframework.http.converter.ByteArrayHttpMessageConverter;
 import org.springframework.web.client.RestTemplate;
 
 @Configuration
-@Profile({"staging", "prod"})
+@Profile({"staging", "prod", "dev"})
 public class RemoteInsightRestTemplateConfiguration {
     private Logger logger = LoggerFactory.getLogger(RemoteInsightRestTemplateConfiguration.class);
 
