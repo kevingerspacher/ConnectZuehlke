@@ -5,7 +5,7 @@ import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
 @JsonIgnoreProperties
-public class    CustomerDto {
+public class CustomerDto {
     @JsonProperty("Id")
     private Integer id;
     @JsonProperty("Name")
