@@ -38,6 +38,9 @@ import {AgmCoreModule} from '@agm/core';
 import {CustomerListComponent} from './customer-list/customer-list.component';
 import {CustomerComponent} from './customer-list/customer/customer.component';
 import {ErrorRequestInterceptor} from './common/error-request-interceptor';
+import { AdminComponent } from './admin/admin.component';
+import { ProjectListComponent } from './project-list/project-list.component';
+import { ProjectComponent } from './project-list/project/project.component';
 
 
 // For more icons, please checkout https://fontawesome.com/icons?d=gallery
@@ -60,7 +63,10 @@ library.add(faAngular);
     EmployeeDetailComponent,
     MapComponent,
     CustomerListComponent,
-    CustomerComponent
+    CustomerComponent,
+    AdminComponent,
+    ProjectListComponent,
+    ProjectComponent,
   ],
   imports: [
     BrowserModule,

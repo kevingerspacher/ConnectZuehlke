@@ -1,0 +1,12 @@
+<h2>Set the projects' moods here</h2>
+
+<mat-form-field>
+  <input matInput [(ngModel)]="searchQuery" placeholder="Search project name">
+</mat-form-field>
+
+<mat-list>
+
+  <app-project *ngFor="let project of projects | search:'name':searchQuery"
+                [project]="project"></app-project>
+</mat-list>
+

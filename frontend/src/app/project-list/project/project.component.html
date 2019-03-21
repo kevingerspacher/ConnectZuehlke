@@ -1,0 +1,25 @@
+<mat-list-item>
+
+  <p matLine>
+    {{project.name}} - Mood: {{project.mood}}
+
+    <!-- HAPPY PROJECT -->
+    <button type="button" mat-icon-button (click)="setProjectMood(project, 0)"  [ngClass]="{
+      'green': project.mood === 0,
+      'silver': project.mood === 1
+    }">
+      <mat-icon>mood</mat-icon>
+    </button>
+
+    <!-- SAD PROJECT -->
+    <button type="button" mat-icon-button (click)="setProjectMood(project, 1)" [ngClass]="{
+      'red': project.mood === 1,
+      'silver': project.mood === 0
+    }">
+      <mat-icon>sentiment_very_dissatisfied</mat-icon>
+    </button>
+
+  </p>
+
+
+</mat-list-item>
