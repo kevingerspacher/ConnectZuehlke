@@ -9,7 +9,6 @@ import {By} from '@angular/platform-browser';
 import {DebugElement} from '@angular/core';
 import {MatInputModule, MatListModule} from '@angular/material';
 import {NoopAnimationsModule} from '@angular/platform-browser/animations';
-import {EmployeeComponent} from './employee/employee.component';
 import {LazyLoadImageModule} from 'ng-lazyload-image';
 import {RouterTestingModule} from '@angular/router/testing';
 
@@ -31,7 +30,6 @@ describe('EmployeeListComponent', () => {
       ],
       declarations: [
         EmployeeTableComponent,
-        EmployeeComponent,
         SearchPipe,
       ],
       providers: [
@@ -51,10 +49,6 @@ describe('EmployeeListComponent', () => {
 
   it('should create', () => {
     expect(component).toBeTruthy();
-  });
-
-  it('should have two employees', () => {
-    expect(component.employees.length).toBe(2);
   });
 
   it('should render two employees', () => {
