@@ -1,7 +1,10 @@
-import {Component, OnInit} from '@angular/core';
+import {Component, OnInit, ViewChild} from '@angular/core';
 import {EmployeeService} from '../employee.service';
 import {Employee} from '../domain/Employee';
-import {ActivatedRoute, Router} from "@angular/router";
+import {Router} from "@angular/router";
+import {MatPaginator, MatTableDataSource} from "@angular/material";
+import {Observable, of} from "rxjs";
+
 
 @Component({
   selector: 'app-employee-table',
@@ -9,36 +12,50 @@ import {ActivatedRoute, Router} from "@angular/router";
   styleUrls: ['./employee-table.component.scss']
 })
 
-
 export class EmployeeTableComponent implements OnInit {
-  employees: Employee[] = [];
+  employees: Observable<Employee[]> = of([
+    {id: 1, leaveProbability: 1, firstName: "2", lastName: "3", code: "2"},
+    {id: 1, leaveProbability: 1, firstName: "2", lastName: "3", code: "2"},
+    {id: 1, leaveProbability: 1, firstName: "2", lastName: "3", code: "2"},
+    {id: 1, leaveProbability: 1, firstName: "2", lastName: "3", code: "2"},
+    {id: 1, leaveProbability: 1, firstName: "2", lastName: "3", code: "2"},
+    {id: 1, leaveProbability: 1, firstName: "2", lastName: "3", code: "2"},
+    {id: 1, leaveProbability: 1, firstName: "2", lastName: "3", code: "2"},
+    {id: 1, leaveProbability: 1, firstName: "2", lastName: "3", code: "2"},
+  ]);
   searchQuery: string;
   displayedColumns: string[] = ['image', 'name', 'leaveProbability'];
+  datasource: MatTableDataSource<Employee>;
 
   constructor(private employeeService: EmployeeService, private router: Router) {
   }
 
+  @ViewChild(MatPaginator) paginator: MatPaginator;
+
   ngOnInit() {
-    this.getEmployees();
+    //this.getEmployees();
+    this.employees.subscribe(employees => {
+      this.datasource = new MatTableDataSource(employees);
+      this.datasource.paginator = this.paginator;
+    })
   }
 
   goToEmployeePage(employee: Employee)
   {
     this.router.navigate([`/employee/${employee.code}`]);
-    console.log(employee);
   }
 
   private getEmployees() {
     this.employeeService
-      .getAllEmployees()
-      .subscribe(employees => {
-        employees.forEach(item => this.employees.push({firstName: item.firstName, lastName: item.lastName,
-          code: item.code, id: item.id, leaveProbability: 0}));
-      });
+      .getAllEmployees().
+      subscribe(employees => {
+      this.datasource = new MatTableDataSource(employees);
+      this.datasource.paginator = this.paginator;
+    });
   }
 
   search() {
-    this.employees = [];
-    this.getEmployees();
+    this.employees = of([]);
+    //this.getEmployees();
   }
 }
