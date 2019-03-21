@@ -10,7 +10,8 @@ import {intersectionObserverPreset, LazyLoadImageModule} from 'ng-lazyload-image
 
 
 import {library} from '@fortawesome/fontawesome-svg-core';
-import {EmployeeTableComponent} from './employee-table/employee-table.component';
+import {EmployeeListComponent} from './employee-list/employee-list.component';
+import {EmployeeComponent} from './employee-list/employee/employee.component';
 import {PageNotFoundComponent} from './page-not-found/page-not-found.component';
 import {HTTP_INTERCEPTORS, HttpClientModule} from '@angular/common/http';
 import {SearchPipe} from './search.pipe';
@@ -24,10 +25,7 @@ import {
   MatSelectModule,
   MatSidenavModule,
   MatSnackBarModule,
-  MatToolbarModule,
-  MatTableModule,
-  MatPaginatorModule,
-  MatSortModule,
+  MatToolbarModule
 } from '@angular/material';
 import {NavigationComponent} from './navigation/navigation.component';
 import {LayoutModule} from '@angular/cdk/layout';
