@@ -2,6 +2,7 @@ package ch.zuehlke.fullstack.ConnectZuehlke.rest;
 
 
 import ch.zuehlke.fullstack.ConnectZuehlke.apis.insight.service.InsightEmployeeService;
+import ch.zuehlke.fullstack.ConnectZuehlke.apis.insight.service.InsightProjectService;
 import ch.zuehlke.fullstack.ConnectZuehlke.domain.Employee;
 import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -15,9 +16,11 @@ import java.util.List;
 @RestController
 public class EmployeeRestController {
     private final InsightEmployeeService employeeService;
+    private final InsightProjectService projectService;
 
-    public EmployeeRestController(InsightEmployeeService employeeService) {
+    public EmployeeRestController(InsightEmployeeService employeeService, InsightProjectService projectService) {
         this.employeeService = employeeService;
+        this.projectService = projectService;
     }
 
     @GetMapping("/api/employees")
@@ -37,4 +40,10 @@ public class EmployeeRestController {
     byte[] getEmployeePicture(@PathVariable(value = "id") int id) throws IOException {
         return employeeService.getEmployeePicture(id);
     }
+
+    @GetMapping("/api/employee/{code}/network")
+    public List<Employee> network(@PathVariable(value = "code") String code) {
+        return projectService.getCoworkers(code);
+    }
+
 }
