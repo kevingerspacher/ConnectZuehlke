@@ -1,9 +1,7 @@
 package ch.zuehlke.fullstack.ConnectZuehlke.apis.insight.service;
 
 import ch.zuehlke.fullstack.ConnectZuehlke.apis.insight.dto.EmployeeDto;
-import ch.zuehlke.fullstack.ConnectZuehlke.apis.insight.dto.EmployeeOnProjectDto;
 import ch.zuehlke.fullstack.ConnectZuehlke.domain.Employee;
-import ch.zuehlke.fullstack.ConnectZuehlke.domain.EmployeeOnProject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Profile;
 import org.springframework.core.ParameterizedTypeReference;
@@ -13,9 +11,6 @@ import org.springframework.web.client.RestTemplate;
 
 import java.util.Arrays;
 import java.util.List;
-import java.util.Objects;
-import java.util.stream.Collectors;
-import java.util.stream.Stream;
 
 import static java.util.stream.Collectors.toList;
 import static org.springframework.http.HttpMethod.GET;
@@ -63,13 +58,5 @@ public class InsightEmployeeServiceRemote implements InsightEmployeeService {
                 .getForEntity("/employees/" + code, EmployeeDto.class);
 
         return response.getBody().toEmployee();
-    }
-
-    @Override
-    public List<EmployeeOnProject> getProjects(String code) {
-        ResponseEntity<EmployeeOnProjectDto[]> response = this.insightRestTemplate
-                .getForEntity("/employees/" + code + "/projects/history", EmployeeOnProjectDto[].class);
-
-        return Stream.of(Objects.requireNonNull(response.getBody())).map(EmployeeOnProjectDto::toProject).collect(Collectors.toList());
     }
 }

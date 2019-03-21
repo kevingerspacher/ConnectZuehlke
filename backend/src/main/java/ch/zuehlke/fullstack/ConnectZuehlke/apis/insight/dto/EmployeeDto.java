@@ -8,16 +8,12 @@ import java.time.LocalDateTime;
 
 @JsonIgnoreProperties
 public class EmployeeDto {
-
     @JsonProperty("FirstName")
     private String firstName;
-
     @JsonProperty("LastName")
     private String lastName;
-
     @JsonProperty("Id")
     private int id;
-
     @JsonProperty("Code")
     private String code;
 
@@ -40,7 +36,7 @@ public class EmployeeDto {
         return new Employee(firstName, lastName, id, code, leaveDate != null);
     }
 
-    public String getCode() {
+    private String getCode() {
         return code;
     }
 
