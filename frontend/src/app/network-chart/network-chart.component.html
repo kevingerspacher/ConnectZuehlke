@@ -1,6 +1,14 @@
-<ng-template #isLoading>Loading ....</ng-template>
-<ng-container *ngIf="employees$ | async as employees; else isLoading">
-  <div *ngFor="let employee of employees">
-    {{employee | json}}
-  </div>
+<ng-template #loading>Loading ....</ng-template>
+<ng-container *ngIf="!isLoading; else loading">
+
+  <highcharts-chart
+    id="container"
+    [Highcharts]="Highcharts"
+    [constructorType]="chartConstructor"
+    [options]="chartOptions"
+    [(update)]="updateFromInput"
+    [oneToOne]="true"
+    style="width: 100%; display: block;">
+  </highcharts-chart>
+
 </ng-container>
