@@ -29,6 +29,7 @@ import {
   MatToolbarModule,
   MatTableModule,
   MatPaginatorModule,
+  MatSortModule,
 } from '@angular/material';
 import {NavigationComponent} from './navigation/navigation.component';
 import {LayoutModule} from '@angular/cdk/layout';
@@ -97,6 +98,7 @@ library.add(faAngular);
     MatTableModule,
     MatProgressSpinnerModule,
     MatPaginatorModule,
+    MatSortModule,
     AgmCoreModule.forRoot({apiKey: 'AIzaSyBrgp24CvFV3M0PZGByVDVEG0qn56k8Y-g'})
   ],
   providers: [
