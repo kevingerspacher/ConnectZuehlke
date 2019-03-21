@@ -6,5 +6,5 @@ import {Component} from '@angular/core';
   styleUrls: ['./hackathon-headline.component.scss']
 })
 export class HackathonHeadlineComponent {
-  title = 'Zühlke Connect';
+  title = 'Predict the Leavers';
 }
