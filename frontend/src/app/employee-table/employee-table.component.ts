@@ -1,6 +1,7 @@
 import {Component, OnInit} from '@angular/core';
 import {EmployeeService} from '../employee.service';
 import {Employee} from '../domain/Employee';
+import {ActivatedRoute, Router} from "@angular/router";
 
 @Component({
   selector: 'app-employee-table',
@@ -14,11 +15,17 @@ export class EmployeeTableComponent implements OnInit {
   searchQuery: string;
   displayedColumns: string[] = ['image', 'name', 'leaveProbability'];
 
-  constructor(private employeeService: EmployeeService) {
+  constructor(private employeeService: EmployeeService, private router: Router) {
   }
 
   ngOnInit() {
     this.getEmployees();
+  }
+
+  goToEmployeePage(employee: Employee)
+  {
+    this.router.navigate([`/employee/${employee.code}`]);
+    console.log(employee);
   }
 
   private getEmployees() {

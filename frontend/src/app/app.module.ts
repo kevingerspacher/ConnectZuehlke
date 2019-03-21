@@ -11,7 +11,6 @@ import {intersectionObserverPreset, LazyLoadImageModule} from 'ng-lazyload-image
 
 import {library} from '@fortawesome/fontawesome-svg-core';
 import {EmployeeTableComponent} from './employee-table/employee-table.component';
-import {EmployeeComponent} from './employee-table/employee/employee.component';
 import {PageNotFoundComponent} from './page-not-found/page-not-found.component';
 import {HTTP_INTERCEPTORS, HttpClientModule} from '@angular/common/http';
 import {SearchPipe} from './search.pipe';
@@ -53,7 +52,6 @@ library.add(faAngular);
 @NgModule({
   declarations: [
     AppComponent,
-    EmployeeComponent,
     EmployeeTableComponent,
     PageNotFoundComponent,
     SearchPipe,
