@@ -11,7 +11,7 @@ public class JobDurationCalculationPart implements CalculationPart {
     @Override
     public BigDecimal calculate(Employee employee) {
         // TODO calculate scores and set in employee object
-        BigDecimal score = BigDecimal.ONE;
+        BigDecimal score = BigDecimal.ZERO;
 
         employee.setJobDurationScore(score);
         return score;

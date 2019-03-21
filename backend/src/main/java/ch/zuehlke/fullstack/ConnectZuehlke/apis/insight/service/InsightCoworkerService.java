@@ -9,4 +9,5 @@ public interface InsightCoworkerService {
     List<Employee> getCoworkers(String employeeCode);
 
     List<Employee> getLeavers(List<Employee> employees);
+
 }

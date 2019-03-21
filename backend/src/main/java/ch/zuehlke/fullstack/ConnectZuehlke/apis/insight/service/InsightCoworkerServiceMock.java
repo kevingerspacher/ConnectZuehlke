@@ -25,4 +25,5 @@ public class InsightCoworkerServiceMock implements InsightCoworkerService {
     public List<Employee> getLeavers(List<Employee> employees) {
         return null;
     }
+
 }
