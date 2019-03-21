@@ -17,7 +17,7 @@ public class EmployeeOnProjectDto {
     private LocalDateTime to;
 
     public EmployeeOnProject toProject() {
-        return new EmployeeOnProject(project.getCode(), project.getFullName(), from, to);
+        return new EmployeeOnProject(project.getCode(), project.getTitle(), from, to);
     }
 
     public ProjectDto getProject() {

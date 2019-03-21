@@ -1,10 +1,11 @@
 package ch.zuehlke.fullstack.ConnectZuehlke.apis.insight.service;
 
-import ch.zuehlke.fullstack.ConnectZuehlke.apis.insight.dto.EmployeeOnProjectDto;
-import ch.zuehlke.fullstack.ConnectZuehlke.apis.insight.dto.EmployeeProjectAssignementDto;
+import ch.zuehlke.fullstack.ConnectZuehlke.apis.insight.dto.*;
 import ch.zuehlke.fullstack.ConnectZuehlke.domain.Employee;
+import ch.zuehlke.fullstack.ConnectZuehlke.domain.Project;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Profile;
+import org.springframework.core.ParameterizedTypeReference;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestTemplate;
@@ -16,6 +17,9 @@ import java.util.function.Function;
 import java.util.function.Predicate;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
+
+import static java.util.stream.Collectors.toList;
+import static org.springframework.http.HttpMethod.GET;
 
 @Service
 @Profile({"prod", "staging", "dev"})
@@ -51,6 +55,16 @@ public class InsightProjectServiceImpl implements InsightProjectService {
                 .filter(distinctByKey(Employee::getCode))
                 .filter(item -> !item.getCode().equals(employeeCode))
                 .collect(Collectors.toList());
+    }
+
+    @Override
+    public List<Project> listProjects() {
+        ResponseEntity<ProjectDto[]> response = this.insightRestTemplate
+                .getForEntity("/projects", ProjectDto[].class);
+
+        return Stream.of(response.getBody())
+                .map(ProjectDto::toProject)
+                .collect(toList());
     }
 
     private List<Employee> getCurrent(String projectCode, LocalDateTime from, LocalDateTime to) {

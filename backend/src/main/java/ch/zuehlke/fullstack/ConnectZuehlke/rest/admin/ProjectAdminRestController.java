@@ -25,6 +25,11 @@ public class ProjectAdminRestController {
         return projectService.getById(id);
     }
 
+    @GetMapping("/api/admin/projects/search/{searchTerm}")
+    public List<Project> project(@PathVariable(value = "searchTerm") String searchTerm) {
+        return projectService.findByTitle(searchTerm);
+    }
+
     @PutMapping("/api/admin/projects/{id}")
     public Project updateMood(@RequestBody Project savedProject, @PathVariable Long id) {
 
