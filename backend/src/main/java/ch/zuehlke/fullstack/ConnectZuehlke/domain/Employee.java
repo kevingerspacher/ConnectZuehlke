@@ -22,14 +22,6 @@ public class Employee {
     @Column(name="CODE")
     private String code;
 
-    public BigDecimal getLeavingPropability() {
-        return leavingPropability;
-    }
-
-    public void setLeavingPropability(BigDecimal leavingPropability) {
-        this.leavingPropability = leavingPropability;
-    }
-
     @Column(name="LEAVING_PROPABILITY")
     private BigDecimal leavingPropability;
 
@@ -121,6 +113,14 @@ public class Employee {
 
     public void setColleagueLeaversScore(Integer colleagueLeaversScore) {
         this.colleagueLeaversScore = colleagueLeaversScore;
+    }
+
+    public BigDecimal getLeavingPropability() {
+        return leavingPropability;
+    }
+
+    public void setLeavingPropability(BigDecimal leavingPropability) {
+        this.leavingPropability = leavingPropability;
     }
 
     @Override
