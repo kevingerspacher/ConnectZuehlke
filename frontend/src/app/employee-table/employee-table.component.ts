@@ -2,7 +2,7 @@ import {Component, OnInit, ViewChild} from '@angular/core';
 import {EmployeeService} from '../employee.service';
 import {Employee} from '../domain/Employee';
 import {Router} from "@angular/router";
-import {MatSort, MatPaginator, MatTableDataSource} from "@angular/material";
+import {MatPaginator, MatTableDataSource} from "@angular/material";
 
 
 @Component({
@@ -12,7 +12,6 @@ import {MatSort, MatPaginator, MatTableDataSource} from "@angular/material";
 })
 
 export class EmployeeTableComponent implements OnInit {
-  searchQuery: string;
   displayedColumns: string[] = ['image', 'name', 'leavingProbability'];
   datasource: MatTableDataSource<Employee>;
 
@@ -20,7 +19,6 @@ export class EmployeeTableComponent implements OnInit {
   }
 
   @ViewChild(MatPaginator) paginator: MatPaginator;
-  @ViewChild(MatSort) sort: MatSort;
 
   ngOnInit() {
     this.getEmployees();
@@ -37,17 +35,11 @@ export class EmployeeTableComponent implements OnInit {
       subscribe(employees => {
       this.datasource = new MatTableDataSource(employees);
       this.datasource.paginator = this.paginator;
-      this.datasource.sort = this.sort;
     });
   }
 
   applyFilter(filterValue: string) {
     this.datasource.filter = filterValue.trim().toLowerCase();
-  }
-
-  search() {
-    //this.employees = of([]);
-    //this.getEmployees();
   }
 
 }

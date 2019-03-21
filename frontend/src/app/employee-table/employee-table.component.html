@@ -1,11 +1,10 @@
-<h2>A list of all Zühlke Employees</h2>
+<h2 style="margin-left: 20px;">The list of all Zühlke Employees</h2>
 
-<mat-form-field>
+<mat-form-field style="margin-left: 20px;">
   <input matInput (keyup)="applyFilter($event.target.value)" placeholder="Type something to search">
 </mat-form-field>
 
-  <table mat-table [dataSource]="datasource" matSort class="mat-elevation-z8">
-
+  <table mat-table [dataSource]="datasource" class="mat-elevation-z8">
     <ng-container matColumnDef="image">
       <th mat-header-cell *matHeaderCellDef class="table_font_size, image_column"></th>
       <td mat-cell *matCellDef="let employee">
@@ -15,14 +14,14 @@
     </ng-container>
 
     <ng-container matColumnDef="name">
-      <th mat-header-cell *matHeaderCellDef class="table_font_size" mat-sort-header>Name</th>
+      <th mat-header-cell *matHeaderCellDef class="table_font_size">Name</th>
       <td mat-cell *matCellDef="let employee" class="table_font_size">
         {{employee.firstName}} {{employee.lastName}}
       </td>
     </ng-container>
 
     <ng-container matColumnDef="leavingProbability">
-      <th mat-header-cell *matHeaderCellDef>Leave Probability mat-sort-header</th>
+      <th mat-header-cell *matHeaderCellDef class="table_font_size">Leave Probability</th>
       <td mat-cell *matCellDef="let employee" class="table_font_size">{{employee.leavingProbability}}</td>
     </ng-container>
 
@@ -30,5 +29,5 @@
     <tr mat-row *matRowDef="let employee; columns:displayedColumns" (click)="goToEmployeePage(employee)"
         class="clickable_table_row"></tr>
   </table>
-  <mat-paginator [pageSizeOptions]="[5, 10, 20]" showFirstLastButtons></mat-paginator>
+  <mat-paginator [pageSizeOptions]="[5, 20, 50, 100]" showFirstLastButtons></mat-paginator>
 
