@@ -41,8 +41,13 @@ export class EmployeeTableComponent implements OnInit {
     });
   }
 
+  applyFilter(filterValue: string) {
+    this.datasource.filter = filterValue.trim().toLowerCase();
+  }
+
   search() {
     //this.employees = of([]);
     //this.getEmployees();
   }
+
 }
