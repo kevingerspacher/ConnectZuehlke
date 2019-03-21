@@ -1,7 +1,19 @@
 .hackathon-headline {
   text-align: center;
+  color: white;
+
   img {
     height: 10em;
     display: inline-block;
   }
+}
+
+:host {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-around;
+  background-image: url("/assets/background.png");
+  background-size: contain;
+  background-color: black;
+  background-repeat: no-repeat;
 }

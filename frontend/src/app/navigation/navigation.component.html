@@ -9,7 +9,7 @@
     <app-sidebar data-id="sidebar"></app-sidebar>
   </mat-sidenav>
 
-  <mat-sidenav-content>
+  <mat-sidenav-content style="display: flex; flex-direction: column">
     <app-topbar (toggleSidbar)="drawer.toggle()"></app-topbar>
 
     <router-outlet></router-outlet>

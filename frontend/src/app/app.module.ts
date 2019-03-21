@@ -22,6 +22,7 @@ import {
   MatIconModule,
   MatInputModule,
   MatListModule,
+  MatProgressSpinnerModule,
   MatSelectModule,
   MatSidenavModule,
   MatSnackBarModule,
@@ -38,10 +39,10 @@ import {AgmCoreModule} from '@agm/core';
 import {CustomerListComponent} from './customer-list/customer-list.component';
 import {CustomerComponent} from './customer-list/customer/customer.component';
 import {ErrorRequestInterceptor} from './common/error-request-interceptor';
-import { AdminComponent } from './admin/admin.component';
-import { ProjectListComponent } from './project-list/project-list.component';
-import { ProjectComponent } from './project-list/project/project.component';
-import { NetworkChartComponent } from './network-chart/network-chart.component';
+import {AdminComponent} from './admin/admin.component';
+import {ProjectListComponent} from './project-list/project-list.component';
+import {ProjectComponent} from './project-list/project/project.component';
+import {NetworkChartComponent} from './network-chart/network-chart.component';
 import {HighchartsChartModule} from "highcharts-angular";
 
 
@@ -91,6 +92,7 @@ library.add(faAngular);
     MatToolbarModule,
     MatSidenavModule,
     MatListModule,
+    MatProgressSpinnerModule,
     AgmCoreModule.forRoot({apiKey: 'AIzaSyBrgp24CvFV3M0PZGByVDVEG0qn56k8Y-g'})
   ],
   providers: [

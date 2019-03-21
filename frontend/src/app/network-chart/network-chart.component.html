@@ -1,4 +1,6 @@
-<ng-template #loading>Loading ....</ng-template>
+<ng-template #loading>
+  <mat-spinner></mat-spinner>
+</ng-template>
 <ng-container *ngIf="!isLoading; else loading">
 
   <highcharts-chart
