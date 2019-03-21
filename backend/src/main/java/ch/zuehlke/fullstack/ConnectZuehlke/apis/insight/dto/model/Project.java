@@ -73,10 +73,6 @@ public class Project {
 
     private String publicDescriptionDe = null;
 
-    @JsonProperty("CreateDate")
-
-    private OffsetDateTime createDate = null;
-
     @JsonProperty("Offering")
 
     private Offering offering = null;
@@ -110,12 +106,6 @@ public class Project {
     @JsonProperty("DataQualityMessage")
 
     private String dataQualityMessage = null;
-    @JsonProperty("From")
-
-    private OffsetDateTime from = null;
-    @JsonProperty("To")
-
-    private OffsetDateTime to = null;
     @JsonProperty("Industry")
 
     private String industry = null;
@@ -410,24 +400,6 @@ public class Project {
         this.publicDescriptionDe = publicDescriptionDe;
     }
 
-    public Project createDate(OffsetDateTime createDate) {
-        this.createDate = createDate;
-        return this;
-    }
-
-    /**
-     * Get createDate
-     *
-     * @return createDate
-     **/
-    @Schema(description = "")
-    public OffsetDateTime getCreateDate() {
-        return createDate;
-    }
-
-    public void setCreateDate(OffsetDateTime createDate) {
-        this.createDate = createDate;
-    }
 
     public Project offering(Offering offering) {
         this.offering = offering;
@@ -627,44 +599,6 @@ public class Project {
 
     public void setDataQualityMessage(String dataQualityMessage) {
         this.dataQualityMessage = dataQualityMessage;
-    }
-
-    public Project from(OffsetDateTime from) {
-        this.from = from;
-        return this;
-    }
-
-    /**
-     * Get from
-     *
-     * @return from
-     **/
-    @Schema(description = "")
-    public OffsetDateTime getFrom() {
-        return from;
-    }
-
-    public void setFrom(OffsetDateTime from) {
-        this.from = from;
-    }
-
-    public Project to(OffsetDateTime to) {
-        this.to = to;
-        return this;
-    }
-
-    /**
-     * Get to
-     *
-     * @return to
-     **/
-    @Schema(description = "")
-    public OffsetDateTime getTo() {
-        return to;
-    }
-
-    public void setTo(OffsetDateTime to) {
-        this.to = to;
     }
 
     public Project industry(String industry) {
@@ -1400,7 +1334,6 @@ public class Project {
                 Objects.equals(this.title, project.title) &&
                 Objects.equals(this.publicTitleDe, project.publicTitleDe) &&
                 Objects.equals(this.publicDescriptionDe, project.publicDescriptionDe) &&
-                Objects.equals(this.createDate, project.createDate) &&
                 Objects.equals(this.offering, project.offering) &&
                 Objects.equals(this.releaseStateDe, project.releaseStateDe) &&
                 Objects.equals(this.publicTitleEn, project.publicTitleEn) &&
@@ -1412,8 +1345,6 @@ public class Project {
                 Objects.equals(this.company, project.company) &&
                 Objects.equals(this.companyId, project.companyId) &&
                 Objects.equals(this.dataQualityMessage, project.dataQualityMessage) &&
-                Objects.equals(this.from, project.from) &&
-                Objects.equals(this.to, project.to) &&
                 Objects.equals(this.industry, project.industry) &&
                 Objects.equals(this.solution, project.solution) &&
                 Objects.equals(this.solutionId, project.solutionId) &&
@@ -1455,7 +1386,7 @@ public class Project {
 
     @Override
     public int hashCode() {
-        return java.util.Objects.hash(vertecId, active, secret, code, name, fullName, description, publicDescription, title, publicTitleDe, publicDescriptionDe, createDate, offering, releaseStateDe, publicTitleEn, publicDescriptionEn, releaseStateEn, admPhases, admPhasesText, currency, company, companyId, dataQualityMessage, from, to, industry, solution, solutionId, salesState, probability, salesStateText, salesType, salesTypeText, salesSource, salesSourceText, supportType, supportTypeText, typeOfContract, typeOfContractText, reimbursementMethod, reimbursementMethodText, projectPhases, salesStates, marketingMaterial, documents, additionalDocuments, skills, lessonsLearned, contact, stakeholder, staffingManager, ddStaffingManager, engagementManager, projectManager, assistance, businessDeveloper, customer, journey, grossMargin, turnover, targetGrossMargin, id);
+        return java.util.Objects.hash(vertecId, active, secret, code, name, fullName, description, publicDescription, title, publicTitleDe, publicDescriptionDe, offering, releaseStateDe, publicTitleEn, publicDescriptionEn, releaseStateEn, admPhases, admPhasesText, currency, company, companyId, dataQualityMessage, industry, solution, solutionId, salesState, probability, salesStateText, salesType, salesTypeText, salesSource, salesSourceText, supportType, supportTypeText, typeOfContract, typeOfContractText, reimbursementMethod, reimbursementMethodText, projectPhases, salesStates, marketingMaterial, documents, additionalDocuments, skills, lessonsLearned, contact, stakeholder, staffingManager, ddStaffingManager, engagementManager, projectManager, assistance, businessDeveloper, customer, journey, grossMargin, turnover, targetGrossMargin, id);
     }
 
     @Override
@@ -1474,7 +1405,6 @@ public class Project {
         sb.append("    title: ").append(toIndentedString(title)).append("\n");
         sb.append("    publicTitleDe: ").append(toIndentedString(publicTitleDe)).append("\n");
         sb.append("    publicDescriptionDe: ").append(toIndentedString(publicDescriptionDe)).append("\n");
-        sb.append("    createDate: ").append(toIndentedString(createDate)).append("\n");
         sb.append("    offering: ").append(toIndentedString(offering)).append("\n");
         sb.append("    releaseStateDe: ").append(toIndentedString(releaseStateDe)).append("\n");
         sb.append("    publicTitleEn: ").append(toIndentedString(publicTitleEn)).append("\n");
@@ -1486,8 +1416,6 @@ public class Project {
         sb.append("    company: ").append(toIndentedString(company)).append("\n");
         sb.append("    companyId: ").append(toIndentedString(companyId)).append("\n");
         sb.append("    dataQualityMessage: ").append(toIndentedString(dataQualityMessage)).append("\n");
-        sb.append("    from: ").append(toIndentedString(from)).append("\n");
-        sb.append("    to: ").append(toIndentedString(to)).append("\n");
         sb.append("    industry: ").append(toIndentedString(industry)).append("\n");
         sb.append("    solution: ").append(toIndentedString(solution)).append("\n");
         sb.append("    solutionId: ").append(toIndentedString(solutionId)).append("\n");

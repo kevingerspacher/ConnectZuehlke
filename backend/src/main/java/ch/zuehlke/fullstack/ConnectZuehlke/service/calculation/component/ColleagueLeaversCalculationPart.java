@@ -24,11 +24,17 @@ public class ColleagueLeaversCalculationPart implements CalculationPart {
         List<Employee> coworkers = coworkerService.getCoworkers(employee.getCode());
         List<Employee> leavers = coworkerService.getLeavers(coworkers);
 
+        if (coworkers.size() == 0) {
+            // avoid division by zero
+            employee.setColleagueLeaversScore(BigDecimal.ZERO);
+            return employee.getColleagueLeaversScore();
+        }
+
         BigDecimal score = new BigDecimal(leavers.size())
                 .divide(new BigDecimal(coworkers.size()), 2, RoundingMode.HALF_UP)
                 .multiply(WEIGHT);
-
         employee.setColleagueLeaversScore(score);
+
         return employee.getColleagueLeaversScore();
     }
 

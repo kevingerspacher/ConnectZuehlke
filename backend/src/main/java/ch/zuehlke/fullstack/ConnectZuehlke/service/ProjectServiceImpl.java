@@ -49,11 +49,15 @@ public class ProjectServiceImpl implements ProjectService {
 
         // enrich projects from insight with locally saved mood values
         Iterable<Project> allFromDb = projectRepository.findAll();
-        Map<Long, Project> map = StreamSupport.stream(allFromDb.spliterator(), false)
-                .collect(Collectors.toMap(p -> p.getId(), p -> p));
-        projects.forEach(p -> p.setMood(map.getOrDefault(p.getId(), new Project(0L,"","",0)).getMood()));
+        enrichWithMood(allFromDb);
 
         return projects;
+    }
+
+    private void enrichWithMood(Iterable<Project> givenProjects) {
+        Map<Long, Project> map = StreamSupport.stream(givenProjects.spliterator(), false)
+                .collect(Collectors.toMap(p -> p.getId(), p -> p));
+        this.projects.forEach(p -> p.setMood(map.getOrDefault(p.getId(), new Project(0L,"","",0)).getMood()));
     }
 
     @Override
@@ -85,5 +89,15 @@ public class ProjectServiceImpl implements ProjectService {
 
         Map<Long, Project> map = projects.stream().collect(Collectors.toMap(p -> p.getId(), p -> p));
         map.get(project.getId()).setMood(project.getMood());
+    }
+
+    @Override
+    public List<Project> getCurrentProjectsOfEmployee(String employeeCode) {
+        List<Project> projectsFromInsight = insightProjectService.listCurrentProject(employeeCode);
+
+        Map<Long, Project> map = this.projects.stream().collect(Collectors.toMap(p -> p.getId(), p -> p));
+        projectsFromInsight.forEach(p -> p.setMood(map.getOrDefault(p.getId(), new Project(0L,"","",0)).getMood()));
+
+        return projectsFromInsight;
     }
 }
