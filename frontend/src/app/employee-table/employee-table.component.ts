@@ -35,7 +35,11 @@ export class EmployeeTableComponent implements OnInit {
       const startIndex = pageEvent.pageIndex * pageEvent.pageSize;
       const endIndex = startIndex + pageEvent.pageSize;
       const itemsShowed = this.datasource.filteredData.slice(startIndex, endIndex);
-      console.log(itemsShowed);
+      //console.log(itemsShowed);
+      this.employeeService.getAllCalculatedEmployees(itemsShowed).subscribe((emp) => {
+        this.datasource = new MatTableDataSource(emp);
+        console.log(emp);
+      });
     });
   }
 
