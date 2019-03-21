@@ -16,6 +16,7 @@ HighchartsNetworkgraph(Highcharts);
 })
 export class NetworkChartComponent implements OnInit {
   private employees$: Observable<Employee[]>;
+  private currentEmployee: string;
   public isLoading;
 
   updateFromInput = false;
@@ -24,7 +25,6 @@ export class NetworkChartComponent implements OnInit {
   chartOptions = {
     chart: {
       type: "networkgraph",
-      //height: "100%"
     },
     title: {
       text: "The Indo-European Laungauge Tree"
@@ -32,22 +32,27 @@ export class NetworkChartComponent implements OnInit {
     subtitle: {
       text: "A Force-Directed Network Graph in Highcharts"
     },
+    tooltip: {
+      enabled: false
+    },
     plotOptions: {
       networkgraph: {
         keys: ["from", "to"],
         layoutAlgorithm: {
           enableSimulation: true
         },
-        // link: {
-        //   color: 'red',
-        //   dowi: {marker: {radius: 10}}
-        // },
+        color: '#9161a5',
+        link: {
+          color: '#000000'
+        },
+        nodes: []
       }
     },
     series: [
       {
         dataLabels: {
-          enabled: true
+          enabled: true,
+          inside: true,
         },
         data: []
       }
@@ -63,7 +68,10 @@ export class NetworkChartComponent implements OnInit {
   ngOnInit() {
     this.isLoading = true;
     this.employees$ = this.route.paramMap.pipe(
-      switchMap((params: ParamMap) => this.service.getNetwork(params.get('code')))
+      switchMap((params: ParamMap) => {
+        this.currentEmployee = params.get('code');
+        return this.service.getNetwork(this.currentEmployee)
+      })
     );
 
     this.createChartOptions();
@@ -72,28 +80,16 @@ export class NetworkChartComponent implements OnInit {
   createChartOptions() {
     this.employees$.subscribe(employees => {
       employees.forEach(employee => {
-        this.chartOptions.series[0].data.push({from: 'dowi', to: employee.firstName, marker: {radius: 10}})
-      });
-      //this.chartOptions.plotOptions.networkgraph.link['dowi'] = {marker: {radius: 100}};
-      this.isLoading = false;
-    });
-
-    Highcharts.setOptions({
-      title: {
-        style: {
-          color: 'orange'
-        }
-      },
-      plotOptions: {
-        networkgraph: {
+        this.chartOptions.series[0].data.push({from: this.currentEmployee, to: employee.firstName, marker: {radius: 10}})
+        this.chartOptions.plotOptions.networkgraph.nodes.push({
+          id: this.currentEmployee,
           marker: {
-            radius: 5
+            radius: 10
           },
-          link : {
-            color: 'green'
-          }
-        }
-      }
+          color: '#ec771b'
+        })
+      });
+      this.isLoading = false;
     });
 
   }
