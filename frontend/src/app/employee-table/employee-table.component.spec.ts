@@ -1,6 +1,6 @@
 import {async, ComponentFixture, TestBed} from '@angular/core/testing';
 
-import {EmployeeListComponent} from './employee-list.component';
+import {EmployeeTableComponent} from './employee-table.component';
 import {FormsModule} from '@angular/forms';
 import {SearchPipe} from '../search.pipe';
 import {EmployeeService} from '../employee.service';
@@ -14,8 +14,8 @@ import {LazyLoadImageModule} from 'ng-lazyload-image';
 import {RouterTestingModule} from '@angular/router/testing';
 
 describe('EmployeeListComponent', () => {
-  let component: EmployeeListComponent;
-  let fixture: ComponentFixture<EmployeeListComponent>;
+  let component: EmployeeTableComponent;
+  let fixture: ComponentFixture<EmployeeTableComponent>;
   let searchEl: DebugElement;
   let listEl: DebugElement;
 
@@ -30,7 +30,7 @@ describe('EmployeeListComponent', () => {
         RouterTestingModule,
       ],
       declarations: [
-        EmployeeListComponent,
+        EmployeeTableComponent,
         EmployeeComponent,
         SearchPipe,
       ],
@@ -42,7 +42,7 @@ describe('EmployeeListComponent', () => {
   }));
 
   beforeEach(() => {
-    fixture = TestBed.createComponent(EmployeeListComponent);
+    fixture = TestBed.createComponent(EmployeeTableComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
     searchEl = fixture.debugElement.query(By.css('input'));

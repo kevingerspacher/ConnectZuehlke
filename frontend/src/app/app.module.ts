@@ -10,8 +10,8 @@ import {intersectionObserverPreset, LazyLoadImageModule} from 'ng-lazyload-image
 
 
 import {library} from '@fortawesome/fontawesome-svg-core';
-import {EmployeeListComponent} from './employee-list/employee-list.component';
-import {EmployeeComponent} from './employee-list/employee/employee.component';
+import {EmployeeTableComponent} from './employee-table/employee-table.component';
+import {EmployeeComponent} from './employee-table/employee/employee.component';
 import {PageNotFoundComponent} from './page-not-found/page-not-found.component';
 import {HTTP_INTERCEPTORS, HttpClientModule} from '@angular/common/http';
 import {SearchPipe} from './search.pipe';
@@ -25,7 +25,8 @@ import {
   MatSelectModule,
   MatSidenavModule,
   MatSnackBarModule,
-  MatToolbarModule
+  MatToolbarModule,
+  MatTableModule
 } from '@angular/material';
 import {NavigationComponent} from './navigation/navigation.component';
 import {LayoutModule} from '@angular/cdk/layout';
@@ -53,7 +54,7 @@ library.add(faAngular);
   declarations: [
     AppComponent,
     EmployeeComponent,
-    EmployeeListComponent,
+    EmployeeTableComponent,
     PageNotFoundComponent,
     SearchPipe,
     NavigationComponent,
@@ -87,6 +88,7 @@ library.add(faAngular);
     MatToolbarModule,
     MatSidenavModule,
     MatListModule,
+    MatTableModule,
     AgmCoreModule.forRoot({apiKey: 'AIzaSyBrgp24CvFV3M0PZGByVDVEG0qn56k8Y-g'})
   ],
   providers: [
