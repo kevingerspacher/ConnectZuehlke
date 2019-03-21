@@ -22,4 +22,9 @@ public class InsightProjectServiceMock implements InsightProjectService {
     public List<Project> listProjects() {
         return PROJECTS;
     }
+
+    @Override
+    public List<Project> listCurrentProject(String employeeCode) {
+        return PROJECTS;
+    }
 }

@@ -1,6 +1,7 @@
 package ch.zuehlke.fullstack.ConnectZuehlke.apis.insight.service;
 
 import ch.zuehlke.fullstack.ConnectZuehlke.apis.insight.dto.ProjectDto;
+import ch.zuehlke.fullstack.ConnectZuehlke.apis.insight.dto.ProjectWrapperDto;
 import ch.zuehlke.fullstack.ConnectZuehlke.domain.Project;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Profile;
@@ -24,7 +25,6 @@ public class InsightProjectServiceImpl implements InsightProjectService {
         this.insightRestTemplate = insightRestTemplate;
     }
 
-
     @Override
     public List<Project> listProjects() {
         ResponseEntity<ProjectDto[]> response = this.insightRestTemplate
@@ -32,6 +32,16 @@ public class InsightProjectServiceImpl implements InsightProjectService {
 
         return Stream.of(response.getBody())
                 .map(ProjectDto::toProject)
+                .collect(toList());
+    }
+
+    @Override
+    public List<Project> listCurrentProject(String employeeCode) {
+        ResponseEntity<ProjectWrapperDto[]> response = this.insightRestTemplate
+                .getForEntity("/employees/" + employeeCode + "/projects/current", ProjectWrapperDto[].class);
+
+        return Stream.of(response.getBody())
+                .map(ProjectWrapperDto::toProject)
                 .collect(toList());
     }
 

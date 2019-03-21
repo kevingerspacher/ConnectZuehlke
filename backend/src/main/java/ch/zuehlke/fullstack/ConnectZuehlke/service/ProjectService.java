@@ -38,4 +38,6 @@ public interface ProjectService {
      * @param project project to save
      */
     void saveProject(Project project);
+
+    List<Project> getCurrentProjectsOfEmployee(String employeeCode);
 }

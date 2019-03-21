@@ -7,4 +7,6 @@ import java.util.List;
 public interface InsightProjectService {
 
     List<Project> listProjects();
+
+    List<Project> listCurrentProject(String employeeCode);
 }
