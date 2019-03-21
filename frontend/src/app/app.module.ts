@@ -41,6 +41,7 @@ import {ErrorRequestInterceptor} from './common/error-request-interceptor';
 import { AdminComponent } from './admin/admin.component';
 import { ProjectListComponent } from './project-list/project-list.component';
 import { ProjectComponent } from './project-list/project/project.component';
+import { NetworkChartComponent } from './network-chart/network-chart.component';
 
 
 // For more icons, please checkout https://fontawesome.com/icons?d=gallery
@@ -67,6 +68,7 @@ library.add(faAngular);
     AdminComponent,
     ProjectListComponent,
     ProjectComponent,
+    NetworkChartComponent,
   ],
   imports: [
     BrowserModule,

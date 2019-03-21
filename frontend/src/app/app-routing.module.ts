@@ -7,6 +7,7 @@ import {EmployeeDetailComponent} from './employee-detail/employee-detail.compone
 import {MapComponent} from './map/map.component';
 import {CustomerListComponent} from './customer-list/customer-list.component';
 import {AdminComponent} from "./admin/admin.component";
+import {NetworkChartComponent} from "./network-chart/network-chart.component";
 
 const routes: Routes = [
   {path: 'employees', component: EmployeeListComponent},
@@ -15,6 +16,7 @@ const routes: Routes = [
   {path: 'welcome', component: HackathonHeadlineComponent},
   {path: 'map', component: MapComponent},
   {path: 'admin', component: AdminComponent},
+  {path: 'network-chart/:code', component: NetworkChartComponent},
 
   {path: '', redirectTo: '/welcome', pathMatch: 'full'},
   {path: '**', component: PageNotFoundComponent}
