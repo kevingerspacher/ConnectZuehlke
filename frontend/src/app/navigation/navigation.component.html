@@ -12,6 +12,8 @@
   <mat-sidenav-content style="display: flex; flex-direction: column">
     <app-topbar (toggleSidbar)="drawer.toggle()"></app-topbar>
 
-    <router-outlet></router-outlet>
+    <div class="router-outlet">
+      <router-outlet></router-outlet>
+    </div>
   </mat-sidenav-content>
 </mat-sidenav-container>

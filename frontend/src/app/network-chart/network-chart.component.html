@@ -1,6 +1,12 @@
 <ng-template #loading>
   <mat-spinner></mat-spinner>
 </ng-template>
+
+<mat-toolbar color="accent">
+  <span>Networking Graph</span>
+</mat-toolbar>
+
+
 <ng-container *ngIf="!isLoading; else loading">
 
   <highcharts-chart

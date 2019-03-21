@@ -18,7 +18,7 @@ import {SearchPipe} from './search.pipe';
 import {FormsModule} from '@angular/forms';
 import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
 import {
-  MatButtonModule,
+  MatButtonModule, MatCardModule,
   MatIconModule,
   MatInputModule,
   MatListModule,
@@ -84,6 +84,7 @@ library.add(faAngular);
     BrowserAnimationsModule,
     HighchartsChartModule,
     MatInputModule,
+    MatCardModule,
     MatButtonModule,
     MatSelectModule,
     MatIconModule,

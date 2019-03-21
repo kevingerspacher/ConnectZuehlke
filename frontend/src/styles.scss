@@ -8,6 +8,10 @@ body {
   font-family: Roboto, "Helvetica Neue", sans-serif;
 }
 
+mat-toolbar {
+  //margin-bottom: 2em;
+}
+
 router-outlet + * {
   flex: auto;
 }
