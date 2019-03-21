@@ -9,10 +9,11 @@ body {
 }
 
 mat-toolbar {
-  //margin-bottom: 2em;
+  margin-bottom: 2em;
 }
 
 router-outlet + * {
   flex: auto;
+  padding: 2em 5em;
 }
 
