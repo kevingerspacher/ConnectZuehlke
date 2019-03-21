@@ -17,9 +17,6 @@ import java.util.function.Predicate;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
-import static java.util.stream.Collectors.toList;
-import static org.springframework.http.HttpMethod.GET;
-
 @Service
 @Profile({"prod", "staging", "dev"})
 public class InsightCoworkerServiceImpl implements InsightCoworkerService {
@@ -63,16 +60,6 @@ public class InsightCoworkerServiceImpl implements InsightCoworkerService {
         return employees.stream()
                 .filter(employee -> this.insightEmployeeService.getEmployee(employee.getCode()).getLeftZE())
                 .collect(Collectors.toList());
-    }
-
-    @Override
-    public List<Project> listProjects() {
-        ResponseEntity<ProjectDto[]> response = this.insightRestTemplate
-                .getForEntity("/projects", ProjectDto[].class);
-
-        return Stream.of(response.getBody())
-                .map(ProjectDto::toProject)
-                .collect(toList());
     }
 
     private List<Employee> getCurrent(String projectCode, LocalDateTime from, LocalDateTime to) {
