@@ -2,8 +2,7 @@ import {Component, OnInit, ViewChild} from '@angular/core';
 import {EmployeeService} from '../employee.service';
 import {Employee} from '../domain/Employee';
 import {Router} from "@angular/router";
-import {MatPaginator, MatTableDataSource} from "@angular/material";
-import {Observable, of} from "rxjs";
+import {MatSort, MatPaginator, MatTableDataSource} from "@angular/material";
 
 
 @Component({
@@ -13,31 +12,18 @@ import {Observable, of} from "rxjs";
 })
 
 export class EmployeeTableComponent implements OnInit {
-  employees: Observable<Employee[]> = of([
-    {id: 1, leaveProbability: 1, firstName: "2", lastName: "3", code: "2"},
-    {id: 1, leaveProbability: 1, firstName: "2", lastName: "3", code: "2"},
-    {id: 1, leaveProbability: 1, firstName: "2", lastName: "3", code: "2"},
-    {id: 1, leaveProbability: 1, firstName: "2", lastName: "3", code: "2"},
-    {id: 1, leaveProbability: 1, firstName: "2", lastName: "3", code: "2"},
-    {id: 1, leaveProbability: 1, firstName: "2", lastName: "3", code: "2"},
-    {id: 1, leaveProbability: 1, firstName: "2", lastName: "3", code: "2"},
-    {id: 1, leaveProbability: 1, firstName: "2", lastName: "3", code: "2"},
-  ]);
   searchQuery: string;
-  displayedColumns: string[] = ['image', 'name', 'leaveProbability'];
+  displayedColumns: string[] = ['image', 'name', 'leavingProbability'];
   datasource: MatTableDataSource<Employee>;
 
   constructor(private employeeService: EmployeeService, private router: Router) {
   }
 
   @ViewChild(MatPaginator) paginator: MatPaginator;
+  @ViewChild(MatSort) sort: MatSort;
 
   ngOnInit() {
-    //this.getEmployees();
-    this.employees.subscribe(employees => {
-      this.datasource = new MatTableDataSource(employees);
-      this.datasource.paginator = this.paginator;
-    })
+    this.getEmployees();
   }
 
   goToEmployeePage(employee: Employee)
@@ -51,11 +37,12 @@ export class EmployeeTableComponent implements OnInit {
       subscribe(employees => {
       this.datasource = new MatTableDataSource(employees);
       this.datasource.paginator = this.paginator;
+      this.datasource.sort = this.sort;
     });
   }
 
   search() {
-    this.employees = of([]);
+    //this.employees = of([]);
     //this.getEmployees();
   }
 }
