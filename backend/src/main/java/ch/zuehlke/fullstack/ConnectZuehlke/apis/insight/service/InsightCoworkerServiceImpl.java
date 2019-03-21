@@ -19,13 +19,15 @@ import java.util.stream.Stream;
 
 @Service
 @Profile({"prod", "staging", "dev"})
-public class InsightProjectServiceImpl implements InsightProjectService {
+public class InsightCoworkerServiceImpl implements InsightCoworkerService {
 
     private final RestTemplate insightRestTemplate;
+    private final InsightEmployeeService insightEmployeeService;
 
     @Autowired
-    public InsightProjectServiceImpl(RestTemplate insightRestTemplate) {
+    public InsightCoworkerServiceImpl(RestTemplate insightRestTemplate, InsightEmployeeService insightEmployeeService) {
         this.insightRestTemplate = insightRestTemplate;
+        this.insightEmployeeService = insightEmployeeService;
     }
 
     @Override
@@ -50,6 +52,13 @@ public class InsightProjectServiceImpl implements InsightProjectService {
         return coworkersFromCurrent.stream()
                 .filter(distinctByKey(Employee::getCode))
                 .filter(item -> !item.getCode().equals(employeeCode))
+                .collect(Collectors.toList());
+    }
+
+    @Override
+    public List<Employee> getLeavers(List<Employee> employees) {
+        return employees.stream()
+                .filter(employee -> this.insightEmployeeService.getEmployee(employee.getCode()).getLeftZE())
                 .collect(Collectors.toList());
     }
 

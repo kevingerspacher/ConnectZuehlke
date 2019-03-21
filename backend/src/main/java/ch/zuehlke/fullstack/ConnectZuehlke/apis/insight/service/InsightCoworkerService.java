@@ -4,7 +4,9 @@ import ch.zuehlke.fullstack.ConnectZuehlke.domain.Employee;
 
 import java.util.List;
 
-public interface InsightProjectService {
+public interface InsightCoworkerService {
 
     List<Employee> getCoworkers(String employeeCode);
+
+    List<Employee> getLeavers(List<Employee> employees);
 }

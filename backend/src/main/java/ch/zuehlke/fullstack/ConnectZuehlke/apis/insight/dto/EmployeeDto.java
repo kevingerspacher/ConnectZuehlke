@@ -4,6 +4,8 @@ import ch.zuehlke.fullstack.ConnectZuehlke.domain.Employee;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
+import java.time.LocalDateTime;
+
 @JsonIgnoreProperties
 public class EmployeeDto {
 
@@ -19,6 +21,9 @@ public class EmployeeDto {
     @JsonProperty("Code")
     private String code;
 
+    @JsonProperty("LeaveDate")
+    private LocalDateTime leaveDate;
+
     public String getLastName() {
         return lastName;
     }
@@ -32,11 +37,18 @@ public class EmployeeDto {
     }
 
     public Employee toEmployee() {
-        return new Employee(getFirstName(), getLastName(), getId(), getCode());
+        return new Employee(firstName, lastName, id, code, leaveDate != null);
     }
 
     public String getCode() {
         return code;
     }
 
+    public LocalDateTime getLeaveDate() {
+        return leaveDate;
+    }
+
+    public void setLeaveDate(LocalDateTime leaveDate) {
+        this.leaveDate = leaveDate;
+    }
 }

@@ -18,9 +18,9 @@ import static java.util.Arrays.asList;
 public class InsightEmployeeServiceMocked implements InsightEmployeeService {
 
     public static final List<Employee> EMPLOYEES = asList(
-            new Employee("Klaus", "Mustermann", 1, "kmu"),
-            new Employee("Magda", "Müller", 2, "mmu"),
-            new Employee("Kurt", "Peters", 3, "kpe")
+            new Employee("Klaus", "Mustermann", 1, "kmu", false),
+            new Employee("Magda", "Müller", 2, "mmu", false),
+            new Employee("Kurt", "Peters", 3, "kpe", false)
     );
 
     public static final List<EmployeeOnProject> EMPLOYEES_EMPLOYEE_ON_PROJECTS = asList(
