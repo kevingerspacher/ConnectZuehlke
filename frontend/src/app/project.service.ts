@@ -11,11 +11,15 @@ export class ProjectService {
   }
 
   public getAllProjects(): Observable<Project[]> {
-
     return this.http
       .get<Project[]>('/api/admin/projects')
       .pipe(catchError(this.handleError('getAllProjects', [])));
+  }
 
+  public getProjectsBySearchTerm(searchTerm : string): Observable<Project[]> {
+    return this.http
+      .get<Project[]>(`api/admin/projects/search/${searchTerm}`)
+      .pipe(catchError(this.handleError('getProjectsBySearchTerm', [])));
   }
 
   public saveProject(project: Project): Observable<Project> {
