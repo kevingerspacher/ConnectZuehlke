@@ -15,6 +15,7 @@ public interface ScoreCalculationService {
      * {@link Employee} entity in the db.
      *
      * @param employees employees to be calculated
+     * @return list of all employees that were calculated.
      */
-    void calculateEmployees(List<Employee> employees);
+    List<Employee> calculateEmployees(List<Employee> employees);
 }

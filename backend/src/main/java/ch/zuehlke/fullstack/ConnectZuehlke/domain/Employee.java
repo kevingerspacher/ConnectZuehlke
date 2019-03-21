@@ -2,7 +2,6 @@ package ch.zuehlke.fullstack.ConnectZuehlke.domain;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import java.math.BigDecimal;
 
@@ -26,29 +25,33 @@ public class Employee {
     private BigDecimal leavingPropability;
 
     @Column(name="SCORE_TOTAL")
-    private Integer leaverScore;
+    private BigDecimal leaverScore;
 
     @Column(name="SCORE_JOB_DURATION")
-    private Integer jobDurationScore;
+    private BigDecimal jobDurationScore;
 
     @Column(name="SCORE_TEAM_MOOD")
-    private Integer teamMoodScore;
+    private BigDecimal teamMoodScore;
 
     @Column(name="SCORE_COLLEAGUE_LEAVERS")
-    private Integer colleagueLeaversScore;
+    private BigDecimal colleagueLeaversScore;
+
+    @Column(name="LEFT_ZE")
+    private Boolean leftZE;
 
     private Employee() {
     }
 
     public Employee(String firstName, String lastName, int id) {
-        this(firstName, lastName, id, firstName.substring(0, 1) + lastName.substring(0, 2));
+        this(firstName, lastName, id, firstName.substring(0, 1) + lastName.substring(0, 2), false);
     }
 
-    public Employee(String firstName, String lastName, int id, String code) {
+    public Employee(String firstName, String lastName, int id, String code, Boolean leftZE) {
         this.firstName = firstName;
         this.lastName = lastName;
         this.id = id;
         this.code = code.toLowerCase();
+        this.leftZE = leftZE;
     }
 
     public int getId() {
@@ -83,35 +86,35 @@ public class Employee {
         this.code = code;
     }
 
-    public Integer getLeaverScore() {
+    public BigDecimal getLeaverScore() {
         return leaverScore;
     }
 
-    public void setLeaverScore(Integer leaverScore) {
+    public void setLeaverScore(BigDecimal leaverScore) {
         this.leaverScore = leaverScore;
     }
 
-    public Integer getJobDurationScore() {
+    public BigDecimal getJobDurationScore() {
         return jobDurationScore;
     }
 
-    public void setJobDurationScore(Integer jobDurationScore) {
+    public void setJobDurationScore(BigDecimal jobDurationScore) {
         this.jobDurationScore = jobDurationScore;
     }
 
-    public Integer getTeamMoodScore() {
+    public BigDecimal getTeamMoodScore() {
         return teamMoodScore;
     }
 
-    public void setTeamMoodScore(Integer teamMoodScore) {
+    public void setTeamMoodScore(BigDecimal teamMoodScore) {
         this.teamMoodScore = teamMoodScore;
     }
 
-    public Integer getColleagueLeaversScore() {
+    public BigDecimal getColleagueLeaversScore() {
         return colleagueLeaversScore;
     }
 
-    public void setColleagueLeaversScore(Integer colleagueLeaversScore) {
+    public void setColleagueLeaversScore(BigDecimal colleagueLeaversScore) {
         this.colleagueLeaversScore = colleagueLeaversScore;
     }
 
@@ -121,6 +124,14 @@ public class Employee {
 
     public void setLeavingPropability(BigDecimal leavingPropability) {
         this.leavingPropability = leavingPropability;
+    }
+
+    public Boolean getLeftZE() {
+        return leftZE;
+    }
+
+    public void setLeftZE(Boolean leftZE) {
+        this.leftZE = leftZE;
     }
 
     @Override

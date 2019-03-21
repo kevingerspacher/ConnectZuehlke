@@ -41,6 +41,6 @@ public class EmployeeProjectAssignementDto {
     }
 
     public Employee toEmployee() {
-        return new Employee(employee.getFirstName(), employee.getLastName(), employee.getId(), employee.getCode());
+        return new Employee(employee.getFirstName(), employee.getLastName(), employee.getId(), employee.getCode(), employee.getLeaveDate() != null);
     }
 }

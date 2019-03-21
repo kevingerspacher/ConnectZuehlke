@@ -12,6 +12,7 @@ import org.springframework.util.CollectionUtils;
 
 import java.math.BigDecimal;
 import java.math.RoundingMode;
+import java.util.Collections;
 import java.util.List;
 
 /**
@@ -29,10 +30,10 @@ public class ScoreCalculationServiceImpl implements ScoreCalculationService {
     private EmployeeRepository employeeRepository;
 
     @Override
-    public void calculateEmployees(List<Employee> employees) {
+    public List<Employee> calculateEmployees(List<Employee> employees) {
         if (CollectionUtils.isEmpty(employees)) {
             LOG.warn("ScoreCalculationServiceImpl.calculateEmployees called but no employees were passed to calculate!");
-            return;
+            return Collections.emptyList();
         }
 
         // calculate all given employees
@@ -42,6 +43,8 @@ public class ScoreCalculationServiceImpl implements ScoreCalculationService {
 
         // save employees with calculations in db
         employeeRepository.saveAll(employees);
+
+        return employees;
     }
 
     /**
@@ -55,7 +58,7 @@ public class ScoreCalculationServiceImpl implements ScoreCalculationService {
 
         try {
             // calculate score using calculationParts
-            int leaverScore = 0;
+            BigDecimal leaverScore = BigDecimal.ZERO;
             int maxScorePossible = 0;
             for (CalculationPart part : calculationParts) {
 
@@ -63,15 +66,15 @@ public class ScoreCalculationServiceImpl implements ScoreCalculationService {
                 int maxPossibleScore = part.getMaxPossibleScore();
 
                 // get the score for the employee from the part
-                int partScore = part.calculate(employee);
+                BigDecimal partScore = part.calculate(employee);
 
                 // validate: is the score higher than the maximum?
-                if (partScore > maxPossibleScore) {
+                if (partScore.compareTo(new BigDecimal(maxPossibleScore)) > 0) {
                     throw new ApplicationException("Score returned from CalculationPart is higher than the specified maximum score!");
                 }
 
                 // increase the leaver score of the employee
-                leaverScore = leaverScore + partScore;
+                leaverScore = leaverScore.add(partScore);
 
                 // increase the maximum score possible from all parts
                 maxScorePossible = maxScorePossible + maxPossibleScore;
@@ -100,9 +103,8 @@ public class ScoreCalculationServiceImpl implements ScoreCalculationService {
      * @param maxScorePossible max possible score from all parts
      * @return the propability, rounded to two decimals
      */
-    private BigDecimal calcLeavingProbability(int leaverScore, int maxScorePossible) {
-        return new BigDecimal(leaverScore).divide(new BigDecimal(maxScorePossible), RoundingMode.HALF_UP)
-                .setScale(2, RoundingMode.HALF_UP);
+    private BigDecimal calcLeavingProbability(BigDecimal leaverScore, int maxScorePossible) {
+        return leaverScore.divide(new BigDecimal(maxScorePossible), 2, RoundingMode.HALF_UP);
     }
 
 }

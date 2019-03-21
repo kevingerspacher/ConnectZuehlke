@@ -3,13 +3,15 @@ package ch.zuehlke.fullstack.ConnectZuehlke.service.calculation.component;
 import ch.zuehlke.fullstack.ConnectZuehlke.domain.Employee;
 import org.springframework.stereotype.Component;
 
+import java.math.BigDecimal;
+
 @Component
 public class JobDurationCalculationPart implements CalculationPart {
 
     @Override
-    public int calculate(Employee employee) {
+    public BigDecimal calculate(Employee employee) {
         // TODO calculate scores and set in employee object
-        int score = 1;
+        BigDecimal score = BigDecimal.ONE;
 
         employee.setJobDurationScore(score);
         return score;

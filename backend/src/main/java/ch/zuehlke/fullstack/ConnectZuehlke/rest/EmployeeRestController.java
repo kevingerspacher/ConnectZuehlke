@@ -2,25 +2,26 @@ package ch.zuehlke.fullstack.ConnectZuehlke.rest;
 
 
 import ch.zuehlke.fullstack.ConnectZuehlke.apis.insight.service.InsightEmployeeService;
-import ch.zuehlke.fullstack.ConnectZuehlke.apis.insight.service.InsightProjectService;
+import ch.zuehlke.fullstack.ConnectZuehlke.apis.insight.service.InsightCoworkerService;
 import ch.zuehlke.fullstack.ConnectZuehlke.domain.Employee;
+import ch.zuehlke.fullstack.ConnectZuehlke.service.calculation.ScoreCalculationService;
 import org.springframework.http.MediaType;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.ResponseBody;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.io.IOException;
 import java.util.List;
+import java.util.stream.Collectors;
 
 @RestController
 public class EmployeeRestController {
     private final InsightEmployeeService employeeService;
-    private final InsightProjectService projectService;
+    private final InsightCoworkerService coworkerService;
+    private final ScoreCalculationService scoreCalculationService;
 
-    public EmployeeRestController(InsightEmployeeService employeeService, InsightProjectService projectService) {
+    public EmployeeRestController(InsightEmployeeService employeeService, InsightCoworkerService coworkerService, ScoreCalculationService scoreCalculationService) {
         this.employeeService = employeeService;
-        this.projectService = projectService;
+        this.coworkerService = coworkerService;
+        this.scoreCalculationService = scoreCalculationService;
     }
 
     @GetMapping("/api/employees")
@@ -43,7 +44,13 @@ public class EmployeeRestController {
 
     @GetMapping("/api/employee/{code}/network")
     public List<Employee> network(@PathVariable(value = "code") String code) {
-        return projectService.getCoworkers(code);
+        return coworkerService.getCoworkers(code);
+    }
+
+    @GetMapping("/api/employee/score")
+    public List<Employee> score(@RequestParam(value = "employeeCodes") List<String> codes) {
+        List<Employee> employeesToCheck = codes.stream().map(employeeService::getEmployee).collect(Collectors.toList());
+        return scoreCalculationService.calculateEmployees(employeesToCheck);
     }
 
 }
