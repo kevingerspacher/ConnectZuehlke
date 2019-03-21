@@ -33,6 +33,8 @@
     "@types/googlemaps": "^3.30.16",
     "core-js": "2.6.4",
     "hammerjs": "2.0.8",
+    "highcharts": "^7.0.3",
+    "highcharts-angular": "^2.4.0",
     "ng-lazyload-image": "^5.0.0",
     "rxjs": "6.4.0",
     "tslib": "1.9.3",

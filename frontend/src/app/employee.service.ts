@@ -18,6 +18,14 @@ export class EmployeeService {
 
   }
 
+  public getNetwork(code: string): Observable<Employee[]> {
+
+    return this.http
+      .get<Employee[]>(`/api/employee/${code}/network`)
+      .pipe(catchError(this.handleError('getNetwork', [])));
+
+  }
+
   /**
    * Handle Http operation that failed.
    * Let the app continue.

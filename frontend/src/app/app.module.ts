@@ -18,10 +18,11 @@ import {SearchPipe} from './search.pipe';
 import {FormsModule} from '@angular/forms';
 import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
 import {
-  MatButtonModule,
+  MatButtonModule, MatCardModule,
   MatIconModule,
   MatInputModule,
   MatListModule,
+  MatProgressSpinnerModule,
   MatSelectModule,
   MatSidenavModule,
   MatSnackBarModule,
@@ -38,9 +39,11 @@ import {AgmCoreModule} from '@agm/core';
 import {CustomerListComponent} from './customer-list/customer-list.component';
 import {CustomerComponent} from './customer-list/customer/customer.component';
 import {ErrorRequestInterceptor} from './common/error-request-interceptor';
-import { AdminComponent } from './admin/admin.component';
-import { ProjectListComponent } from './project-list/project-list.component';
-import { ProjectComponent } from './project-list/project/project.component';
+import {AdminComponent} from './admin/admin.component';
+import {ProjectListComponent} from './project-list/project-list.component';
+import {ProjectComponent} from './project-list/project/project.component';
+import {NetworkChartComponent} from './network-chart/network-chart.component';
+import {HighchartsChartModule} from "highcharts-angular";
 
 
 // For more icons, please checkout https://fontawesome.com/icons?d=gallery
@@ -67,6 +70,7 @@ library.add(faAngular);
     AdminComponent,
     ProjectListComponent,
     ProjectComponent,
+    NetworkChartComponent,
   ],
   imports: [
     BrowserModule,
@@ -78,7 +82,9 @@ library.add(faAngular);
     }),
     HttpClientModule,
     BrowserAnimationsModule,
+    HighchartsChartModule,
     MatInputModule,
+    MatCardModule,
     MatButtonModule,
     MatSelectModule,
     MatIconModule,
@@ -87,6 +93,7 @@ library.add(faAngular);
     MatToolbarModule,
     MatSidenavModule,
     MatListModule,
+    MatProgressSpinnerModule,
     AgmCoreModule.forRoot({apiKey: 'AIzaSyBrgp24CvFV3M0PZGByVDVEG0qn56k8Y-g'})
   ],
   providers: [
