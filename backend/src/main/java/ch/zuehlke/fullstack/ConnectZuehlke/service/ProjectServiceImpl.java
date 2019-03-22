@@ -6,7 +6,6 @@ import ch.zuehlke.fullstack.ConnectZuehlke.domain.Project;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.cache.annotation.Cacheable;
 import org.springframework.stereotype.Service;
 
 import javax.annotation.PostConstruct;
@@ -25,10 +24,9 @@ public class ProjectServiceImpl implements ProjectService {
     private static Logger LOG = LoggerFactory.getLogger(ProjectServiceImpl.class);
 
     @Autowired
-    private ProjectRepository projectRepository;
-
-    @Autowired
     InsightProjectService insightProjectService;
+    @Autowired
+    private ProjectRepository projectRepository;
 
     private List<Project> projects = new ArrayList<>();
 
@@ -41,7 +39,6 @@ public class ProjectServiceImpl implements ProjectService {
 
 
     @Override
-    @Cacheable("getProjects")
     public List<Project> getProjectList() {
         if (projects.size() > 0) {
             LOG.info("Returning projects from cache...");
@@ -57,14 +54,7 @@ public class ProjectServiceImpl implements ProjectService {
         return projects;
     }
 
-    private void enrichWithMood(Iterable<Project> givenProjects) {
-        Map<Long, Project> map = StreamSupport.stream(givenProjects.spliterator(), false)
-                .collect(Collectors.toMap(p -> p.getId(), p -> p));
-        this.projects.forEach(p -> p.setMood(map.getOrDefault(p.getId(), new Project(0L,"","",0)).getMood()));
-    }
-
     @Override
-    @Cacheable("projectById")
     public Project getById(Long id) {
         for (Project project : projects) {
             if (project.getId().equals(id)) {
@@ -76,7 +66,7 @@ public class ProjectServiceImpl implements ProjectService {
 
     @Override
     public List<Project> findByTitle(String searchTerm) {
-        LOG.info("###### Find projects by title containing: " + searchTerm);
+        LOG.info("Find projects by title containing: " + searchTerm);
         List<Project> resultList = new ArrayList<>();
         for (Project p : projects) {
             if (p.getName() != null && p.getName().toLowerCase().contains(searchTerm.toLowerCase())) {
@@ -103,5 +93,11 @@ public class ProjectServiceImpl implements ProjectService {
         projectsFromInsight.forEach(p -> p.setMood(map.getOrDefault(p.getId(), new Project(0L,"","",0)).getMood()));
 
         return projectsFromInsight;
+    }
+
+    private void enrichWithMood(Iterable<Project> givenProjects) {
+        Map<Long, Project> map = StreamSupport.stream(givenProjects.spliterator(), false)
+                .collect(Collectors.toMap(p -> p.getId(), p -> p));
+        this.projects.forEach(p -> p.setMood(map.getOrDefault(p.getId(), new Project(0L,"","",0)).getMood()));
     }
 }

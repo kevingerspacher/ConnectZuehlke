@@ -5,7 +5,6 @@ import ch.zuehlke.fullstack.ConnectZuehlke.dao.EmployeeRepository;
 import ch.zuehlke.fullstack.ConnectZuehlke.domain.Employee;
 import ch.zuehlke.fullstack.ConnectZuehlke.domain.EmployeeOnProject;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.cache.annotation.Cacheable;
 import org.springframework.stereotype.Service;
 
 import java.io.IOException;
@@ -23,7 +22,6 @@ public class EmployeeServiceImpl implements EmployeeService{
     @Autowired
     private EmployeeRepository employeeRepository;
 
-    @Cacheable("employees")
     @Override
     public List<Employee> getEmployees() {
 
@@ -38,13 +36,11 @@ public class EmployeeServiceImpl implements EmployeeService{
         return insightEmployees;
     }
 
-    @Cacheable("employeePictures")
     @Override
     public byte[] getEmployeePicture(int id) throws IOException {
         return insightEmployeeService.getEmployeePicture(id);
     }
 
-    @Cacheable("employeeSingle")
     @Override
     public Employee getEmployee(String code) {
 
@@ -57,7 +53,6 @@ public class EmployeeServiceImpl implements EmployeeService{
         return e;
     }
 
-    @Cacheable("employeeProjectsHistory")
     @Override
     public List<EmployeeOnProject> getProjects(String code) {
         return insightEmployeeService.getProjects(code);
