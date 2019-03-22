@@ -26,6 +26,12 @@ public class TeamMoodCalculationPart implements CalculationPart {
             totalMood = totalMood + mood;
         }
 
+        if (currentProjects.size() == 0) {
+            // avoid division by zero
+            employee.setTeamMoodScore(BigDecimal.ZERO);
+            return employee.getTeamMoodScore();
+        }
+
         BigDecimal score = new BigDecimal(totalMood)
                 .divide(new BigDecimal(currentProjects.size()), 2, RoundingMode.HALF_UP);
 
