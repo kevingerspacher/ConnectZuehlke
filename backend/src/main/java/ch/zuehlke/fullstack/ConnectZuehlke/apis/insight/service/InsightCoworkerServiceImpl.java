@@ -98,7 +98,7 @@ public class InsightCoworkerServiceImpl implements InsightCoworkerService {
         return filterAssignments(response.getBody(), from, to);
     }
 
-    public static <T> Predicate<T> distinctByKey(Function<? super T, ?> keyExtractor) {
+    private static <T> Predicate<T> distinctByKey(Function<? super T, ?> keyExtractor) {
         Set<Object> seen = ConcurrentHashMap.newKeySet();
         return t -> seen.add(keyExtractor.apply(t));
     }

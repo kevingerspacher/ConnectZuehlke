@@ -4,6 +4,7 @@ import ch.zuehlke.fullstack.ConnectZuehlke.apis.insight.dto.CustomerDto;
 import ch.zuehlke.fullstack.ConnectZuehlke.apis.insight.dto.ListDto;
 import ch.zuehlke.fullstack.ConnectZuehlke.domain.Customer;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.cache.annotation.Cacheable;
 import org.springframework.context.annotation.Profile;
 import org.springframework.core.ParameterizedTypeReference;
 import org.springframework.http.ResponseEntity;
@@ -27,6 +28,7 @@ public class InsightCustomerServiceRemote implements InsightCustomerService {
     }
 
     @Override
+    @Cacheable("customers")
     public List<Customer> getCustomers() {
         ResponseEntity<ListDto<CustomerDto>> response = this.insightRestTemplate
                 .exchange("/customers", GET, null, new ParameterizedTypeReference<ListDto<CustomerDto>>() {
