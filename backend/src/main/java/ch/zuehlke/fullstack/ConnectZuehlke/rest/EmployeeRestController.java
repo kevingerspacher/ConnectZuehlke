@@ -4,6 +4,7 @@ package ch.zuehlke.fullstack.ConnectZuehlke.rest;
 import ch.zuehlke.fullstack.ConnectZuehlke.apis.insight.service.InsightEmployeeService;
 import ch.zuehlke.fullstack.ConnectZuehlke.apis.insight.service.InsightCoworkerService;
 import ch.zuehlke.fullstack.ConnectZuehlke.domain.Employee;
+import ch.zuehlke.fullstack.ConnectZuehlke.service.EmployeeService;
 import ch.zuehlke.fullstack.ConnectZuehlke.service.calculation.ScoreCalculationService;
 import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.*;
@@ -14,11 +15,11 @@ import java.util.stream.Collectors;
 
 @RestController
 public class EmployeeRestController {
-    private final InsightEmployeeService employeeService;
+    private final EmployeeService employeeService;
     private final InsightCoworkerService coworkerService;
     private final ScoreCalculationService scoreCalculationService;
 
-    public EmployeeRestController(InsightEmployeeService employeeService, InsightCoworkerService coworkerService, ScoreCalculationService scoreCalculationService) {
+    public EmployeeRestController(EmployeeService employeeService, InsightCoworkerService coworkerService, ScoreCalculationService scoreCalculationService) {
         this.employeeService = employeeService;
         this.coworkerService = coworkerService;
         this.scoreCalculationService = scoreCalculationService;

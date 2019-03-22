@@ -1,8 +1,7 @@
 package ch.zuehlke.fullstack.ConnectZuehlke.services.employee;
 
-import ch.zuehlke.fullstack.ConnectZuehlke.apis.insight.dto.EmployeeDto;
-import ch.zuehlke.fullstack.ConnectZuehlke.apis.insight.service.InsightEmployeeService;
 import ch.zuehlke.fullstack.ConnectZuehlke.domain.Employee;
+import ch.zuehlke.fullstack.ConnectZuehlke.service.EmployeeService;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -10,15 +9,15 @@ import java.util.List;
 @Service
 public class ProjectCoworkerServiceImpl implements ProjectCoworkerService {
 
-    private final InsightEmployeeService insightEmployeeService;
+    private final EmployeeService employeeService;
 
-    public ProjectCoworkerServiceImpl(InsightEmployeeService insightEmployeeService) {
-        this.insightEmployeeService = insightEmployeeService;
+    public ProjectCoworkerServiceImpl(EmployeeService employeeService) {
+        this.employeeService = employeeService;
     }
 
     @Override
     public List<String> getCoworkers(String code) {
-        Employee employee = this.insightEmployeeService.getEmployee(code);
+        Employee employee = this.employeeService.getEmployee(code);
         if (employee != null) {
 
         }
