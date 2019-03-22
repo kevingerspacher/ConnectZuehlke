@@ -75,7 +75,7 @@ public class ProjectServiceImpl implements ProjectService {
         LOG.info("###### Find projects by title containing: " + searchTerm);
         List<Project> resultList = new ArrayList<>();
         for (Project p : projects) {
-            if (p.getName() != null && p.getName().contains(searchTerm)) {
+            if (p.getName() != null && p.getName().toLowerCase().contains(searchTerm.toLowerCase())) {
                 resultList.add(p);
             }
         }
