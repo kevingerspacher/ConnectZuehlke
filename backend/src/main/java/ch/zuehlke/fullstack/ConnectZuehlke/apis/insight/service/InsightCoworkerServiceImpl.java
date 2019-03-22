@@ -5,6 +5,7 @@ import ch.zuehlke.fullstack.ConnectZuehlke.apis.insight.dto.EmployeeProjectAssig
 import ch.zuehlke.fullstack.ConnectZuehlke.domain.Employee;
 import ch.zuehlke.fullstack.ConnectZuehlke.service.EmployeeService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.cache.annotation.Cacheable;
 import org.springframework.context.annotation.Profile;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
@@ -32,6 +33,7 @@ public class InsightCoworkerServiceImpl implements InsightCoworkerService {
     }
 
     @Override
+    @Cacheable("coworkers")
     public List<Employee> getCoworkers(String employeeCode) {
         Objects.requireNonNull(employeeCode);
 
@@ -57,6 +59,7 @@ public class InsightCoworkerServiceImpl implements InsightCoworkerService {
     }
 
     @Override
+    @Cacheable("leavers")
     public List<Employee> getLeavers(List<Employee> employees) {
         return employees.stream()
                 .filter(employee -> this.employeeService.getEmployee(employee.getCode()).getLeftZE())

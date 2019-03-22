@@ -1,5 +1,7 @@
 package ch.zuehlke.fullstack.ConnectZuehlke.domain;
 
+import java.util.Objects;
+
 public class Customer {
 
     private Integer id;
@@ -53,5 +55,25 @@ public class Customer {
 
     public Double getLatitude() {
         return latitude;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Customer customer = (Customer) o;
+        return Objects.equals(id, customer.id) &&
+                Objects.equals(name, customer.name) &&
+                Objects.equals(street, customer.street) &&
+                Objects.equals(city, customer.city) &&
+                Objects.equals(country, customer.country) &&
+                Objects.equals(zip, customer.zip) &&
+                Objects.equals(longitude, customer.longitude) &&
+                Objects.equals(latitude, customer.latitude);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(id, name, street, city, country, zip, longitude, latitude);
     }
 }
