@@ -4,6 +4,7 @@ import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
 import java.math.BigDecimal;
+import java.util.Objects;
 
 @Entity
 public class Employee {
@@ -146,5 +147,28 @@ public class Employee {
                 ", teamMoodScore=" + teamMoodScore +
                 ", colleagueLeaversScore=" + colleagueLeaversScore +
                 '}';
+    }
+
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Employee employee = (Employee) o;
+        return id == employee.id &&
+                Objects.equals(firstName, employee.firstName) &&
+                Objects.equals(lastName, employee.lastName) &&
+                Objects.equals(code, employee.code) &&
+                Objects.equals(leavingPropability, employee.leavingPropability) &&
+                Objects.equals(leaverScore, employee.leaverScore) &&
+                Objects.equals(jobDurationScore, employee.jobDurationScore) &&
+                Objects.equals(teamMoodScore, employee.teamMoodScore) &&
+                Objects.equals(colleagueLeaversScore, employee.colleagueLeaversScore) &&
+                Objects.equals(leftZE, employee.leftZE);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(id, firstName, lastName, code, leavingPropability, leaverScore, jobDurationScore, teamMoodScore, colleagueLeaversScore, leftZE);
     }
 }

@@ -3,6 +3,7 @@ package ch.zuehlke.fullstack.ConnectZuehlke.domain;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
+import java.util.Objects;
 
 @Entity
 public class Project {
@@ -60,5 +61,21 @@ public class Project {
 
     public void setMood(Integer mood) {
         this.mood = mood;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Project project = (Project) o;
+        return Objects.equals(id, project.id) &&
+                Objects.equals(code, project.code) &&
+                Objects.equals(name, project.name) &&
+                Objects.equals(mood, project.mood);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(id, code, name, mood);
     }
 }
