@@ -23,9 +23,10 @@
     </ng-container>
 
     <ng-container matColumnDef="leavingPropability">
-      <th mat-header-cell *matHeaderCellDef class="table_font_size">Leave Probability</th>
+      <th mat-header-cell *matHeaderCellDef class="table_font_size">
+        <mat-icon>directions_run</mat-icon> Leave Probability</th>
       <td mat-cell *matCellDef="let employee" class="table_font_size">
-        <div *ngIf="employee.leavingPropability === null">
+        <div *ngIf="calculateFlag[employee.code]">
           <mat-spinner></mat-spinner>
         </div>
         {{employee.leavingPropability | percent}}
@@ -35,7 +36,9 @@
     <ng-container matColumnDef="actions">
       <th mat-header-cell *matHeaderCellDef class="table_font_size"> Actions </th>
       <td mat-cell *matCellDef="let employee" >
-        <button (click)="calculateProbability(employee)">Calculate score</button>
+        <button type="button" mat-icon-button (click)="calculateProbability(employee)">
+          <mat-icon>play_arrow</mat-icon>
+        </button>
       </td>
     </ng-container>
 

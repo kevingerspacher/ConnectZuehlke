@@ -14,6 +14,7 @@ import {MatPaginator, MatTableDataSource} from "@angular/material";
 export class EmployeeTableComponent implements OnInit {
   displayedColumns: string[] = ['image', 'name', 'leavingPropability', 'actions'];
   datasource: MatTableDataSource<Employee>;
+  calculateFlag = new Map<string, boolean>();
 
   constructor(private employeeService: EmployeeService, private router: Router) {
   }
@@ -41,11 +42,13 @@ export class EmployeeTableComponent implements OnInit {
   // }
 
   private calculateProbability(employee: Employee){
+    this.calculateFlag[employee.code] = true;
     const index = this.datasource.data.indexOf(employee);
     this.employeeService.getAllCalculatedEmployees([employee]).subscribe((employee) => {
       const tempDataSource = this.datasource.data;
       tempDataSource[index] = employee[0];
       this.datasource.data = tempDataSource;
+      this.calculateFlag[employee[0].code] = false;
     });
   }
 
@@ -70,6 +73,8 @@ export class EmployeeTableComponent implements OnInit {
       subscribe(employees => {
       this.datasource = new MatTableDataSource(employees);
       this.datasource.paginator = this.paginator;
+      employees.map(employee => this.calculateFlag.set(employee.code, false));
+
       //this.getVisibleEmployees();
     });
   }
