@@ -3,7 +3,7 @@ import {async, ComponentFixture, TestBed} from '@angular/core/testing';
 import {EmployeeDetailComponent} from './employee-detail.component';
 import {RouterTestingModule} from '@angular/router/testing';
 import {EmployeeService} from '../employee.service';
-import {EmployeeServiceMock} from '../employee-list/employee.service-mock';
+import {EmployeeServiceMock} from '../employee-table/employee.service-mock';
 
 describe('EmployeeDetailComponent', () => {
   let component: EmployeeDetailComponent;

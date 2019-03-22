@@ -20,10 +20,18 @@ export class EmployeeDetailComponent implements OnInit {
   ) {
   }
 
+  private code: string;
+
   ngOnInit() {
     this.employee$ = this.route.paramMap.pipe(
-      switchMap((params: ParamMap) => this.service.getEmployee(params.get('code')))
+      switchMap((params: ParamMap) => {
+        this.code = params.get('code');
+        return this.service.getEmployee(this.code);
+      })
     );
   }
+
+  goToNetwork(){
+    this.router.navigate([`/network-chart/${this.code}`]);  }
 
 }

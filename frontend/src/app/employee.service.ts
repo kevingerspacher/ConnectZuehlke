@@ -55,4 +55,9 @@ export class EmployeeService {
       .get<Employee>(`/api/employee/${id}`)
       .pipe(catchError(this.handleError('getEmployee', null)));
   }
+
+  getAllCalculatedEmployees(employees: Employee[]): Observable<Employee[]> {
+    return this.http.put<Employee[]>('/api/employee/calculate', employees)
+      .pipe(catchError(this.handleError('getAllCalculatedEmployees', [])));
+  }
 }

@@ -1,6 +1,19 @@
 <div *ngIf="employee$ | async as employee">
   <h3>{{ employee.firstName}} {{ employee.lastName}}</h3>
   <div>
-    <label>Id: </label>{{ employee.id }}
+    <div style="width: 100%; overflow: hidden;">
+      <div style="width: 20%; float: left;">
+        <img matListAvatar defaultImage="assets/demo.jpg" lazyLoad="/api/employee/{{employee.id}}/picture"
+           alt="{{employee.firstName}} {{employee.lastName}}" class="employee_image">
+      </div>
+      <div style="margin-left: 20%; margin-top: 20px">
+        <div>Durchschnittlicher Job-Verweildauer: {{ employee.id }}</div>
+        <div>Teamstimmung aktuelles Projekt: {{employee.teamMoodScore}}</div>
+        <div>Progress: {{employee.leavingPropability }}</div>
+        <div id="progress" class="graph"><div id="bar" style="width:{{employee.leavingPropability}}%"><p>{{employee.leavingPropability }}%</p></div></div>
+        <div><button mat-button (click)="goToNetwork()">Show network</button></div>
+      </div>
+    </div>
+
   </div>
 </div>

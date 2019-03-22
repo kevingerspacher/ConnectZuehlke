@@ -3,4 +3,6 @@ export interface Employee {
   lastName: string;
   id: number;
   code: string;
+  leavingPropability :number;
+  teamMoodScore: number;
 }
