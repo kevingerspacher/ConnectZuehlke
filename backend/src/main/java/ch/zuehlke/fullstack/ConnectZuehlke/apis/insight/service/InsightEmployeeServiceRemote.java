@@ -5,6 +5,7 @@ import ch.zuehlke.fullstack.ConnectZuehlke.apis.insight.dto.EmployeeOnProjectDto
 import ch.zuehlke.fullstack.ConnectZuehlke.domain.Employee;
 import ch.zuehlke.fullstack.ConnectZuehlke.domain.EmployeeOnProject;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.cache.annotation.Cacheable;
 import org.springframework.context.annotation.Profile;
 import org.springframework.core.ParameterizedTypeReference;
 import org.springframework.http.*;
@@ -32,6 +33,7 @@ public class InsightEmployeeServiceRemote implements InsightEmployeeService {
     }
 
     @Override
+    @Cacheable("employees")
     public List<Employee> getEmployees() {
         ResponseEntity<List<EmployeeDto>> response = this.insightRestTemplate
                 .exchange("/employees", GET, null, new ParameterizedTypeReference<List<EmployeeDto>>() {
@@ -43,6 +45,7 @@ public class InsightEmployeeServiceRemote implements InsightEmployeeService {
     }
 
     @Override
+    @Cacheable("picture")
     public byte[] getEmployeePicture(int id) {
         HttpHeaders headers = new HttpHeaders();
         headers.setAccept(Arrays.asList(MediaType.APPLICATION_OCTET_STREAM));
@@ -58,6 +61,7 @@ public class InsightEmployeeServiceRemote implements InsightEmployeeService {
     }
 
     @Override
+    @Cacheable("employee")
     public Employee getEmployee(String code) {
         ResponseEntity<EmployeeDto> response = this.insightRestTemplate
                 .getForEntity("/employees/" + code, EmployeeDto.class);
@@ -66,6 +70,7 @@ public class InsightEmployeeServiceRemote implements InsightEmployeeService {
     }
 
     @Override
+    @Cacheable("projects")
     public List<EmployeeOnProject> getProjects(String code) {
         ResponseEntity<EmployeeOnProjectDto[]> response = this.insightRestTemplate
                 .getForEntity("/employees/" + code + "/projects/history", EmployeeOnProjectDto[].class);
