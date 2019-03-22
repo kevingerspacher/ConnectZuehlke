@@ -27,10 +27,10 @@ export class NetworkChartComponent implements OnInit {
       type: "networkgraph",
     },
     title: {
-      text: "The Indo-European Laungauge Tree"
+      text: "Your Zühlke Network Graph"
     },
     subtitle: {
-      text: "A Force-Directed Network Graph in Highcharts"
+      text: "shows all your project colleagues!"
     },
     tooltip: {
       enabled: false
