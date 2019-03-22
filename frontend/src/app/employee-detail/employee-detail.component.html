@@ -9,8 +9,8 @@
       <div style="margin-left: 20%; margin-top: 20px">
         <div>Durchschnittlicher Job-Verweildauer: {{ employee.id }}</div>
         <div>Teamstimmung aktuelles Projekt</div>
-        <div>Progress: {{employee.leaveProbability }}</div>
-        <div id="progress" class="graph"><div id="bar" style="width:75%"><p>75%</p></div></div>
+        <div>Progress: {{employee.leavingPropability }}</div>
+        <div id="progress" class="graph"><div id="bar" style="width:75%"><p>{{employee.leavingPropability }}%</p></div></div>
       </div>
     </div>
 
