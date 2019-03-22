@@ -39,10 +39,19 @@ public class ScoreCalculationServiceImpl implements ScoreCalculationService {
             return Collections.emptyList();
         }
 
-        // calculate all given employees
-        for (Employee employee : employees) {
-            calculateSingleEmployee(employee);
-        }
+        // calculate all employees with no left date
+        employees.stream()
+                .filter(employee -> {
+                    if (employee.getLeftZE()) {
+                        employee.setLeavingPropability(BigDecimal.ONE);
+                        employee.setColleagueLeaversScore(BigDecimal.ONE);
+                        employee.setTeamMoodScore(BigDecimal.ONE);
+                        employee.setJobDurationScore(BigDecimal.ONE);
+                        return false;
+                    }
+                    return true;
+                })
+                .forEach(this::calculateSingleEmployee);
 
         // save employees with calculations in db
         employeeRepository.saveAll(employees);
