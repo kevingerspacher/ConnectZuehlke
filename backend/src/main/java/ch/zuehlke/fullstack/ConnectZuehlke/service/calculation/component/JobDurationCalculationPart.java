@@ -19,6 +19,6 @@ public class JobDurationCalculationPart implements CalculationPart {
 
     @Override
     public int getMaxPossibleScore() {
-        return 1;
+        return 0;
     }
 }
