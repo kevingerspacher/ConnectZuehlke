@@ -26,6 +26,9 @@
         <div>
           <mat-icon *ngIf="employee.teamMoodScore === 0" aria-label="Side nav toggle icon">sentiment_very_satisfied
           </mat-icon>
+          <mat-icon *ngIf="employee.teamMoodScore > 0 && employee.teamMoodScore < 1" aria-label="Side nav toggle icon">
+            sentiment_neutral
+          </mat-icon>
           <mat-icon *ngIf="employee.teamMoodScore === 1" aria-label="Side nav toggle icon">
             sentiment_very_dissatisfied
           </mat-icon>
@@ -33,8 +36,8 @@
       </div>
 
       <div class="score-row">
-        <div>Leaver Score:</div>
-        <div>{{employee.leaverScore | percent}}</div>
+        <div>Colleague Leaver Score:</div>
+        <div>{{employee.colleagueLeaversScore | percent}}</div>
       </div>
 
 

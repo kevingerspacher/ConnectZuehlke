@@ -4,6 +4,6 @@ export interface Employee {
   id: number;
   code: string;
   leavingPropability :number;
-  leaverScore: number;
   teamMoodScore: number;
+  colleagueLeaversScore:number
 }
