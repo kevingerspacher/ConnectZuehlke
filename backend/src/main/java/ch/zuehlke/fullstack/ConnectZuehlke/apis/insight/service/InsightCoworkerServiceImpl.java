@@ -3,6 +3,7 @@ package ch.zuehlke.fullstack.ConnectZuehlke.apis.insight.service;
 import ch.zuehlke.fullstack.ConnectZuehlke.apis.insight.dto.EmployeeOnProjectDto;
 import ch.zuehlke.fullstack.ConnectZuehlke.apis.insight.dto.EmployeeProjectAssignementDto;
 import ch.zuehlke.fullstack.ConnectZuehlke.domain.Employee;
+import ch.zuehlke.fullstack.ConnectZuehlke.service.EmployeeService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Profile;
 import org.springframework.http.ResponseEntity;
@@ -22,12 +23,12 @@ import java.util.stream.Stream;
 public class InsightCoworkerServiceImpl implements InsightCoworkerService {
 
     private final RestTemplate insightRestTemplate;
-    private final InsightEmployeeService insightEmployeeService;
+    private final EmployeeService employeeService;
 
     @Autowired
-    public InsightCoworkerServiceImpl(RestTemplate insightRestTemplate, InsightEmployeeService insightEmployeeService) {
+    public InsightCoworkerServiceImpl(RestTemplate insightRestTemplate, EmployeeService employeeService) {
         this.insightRestTemplate = insightRestTemplate;
-        this.insightEmployeeService = insightEmployeeService;
+        this.employeeService = employeeService;
     }
 
     @Override
@@ -58,7 +59,7 @@ public class InsightCoworkerServiceImpl implements InsightCoworkerService {
     @Override
     public List<Employee> getLeavers(List<Employee> employees) {
         return employees.stream()
-                .filter(employee -> this.insightEmployeeService.getEmployee(employee.getCode()).getLeftZE())
+                .filter(employee -> this.employeeService.getEmployee(employee.getCode()).getLeftZE())
                 .collect(Collectors.toList());
     }
 
