@@ -29,7 +29,8 @@ import {
   MatToolbarModule,
   MatTableModule,
   MatPaginatorModule,
-  MatProgressBarModule, MatTooltipModule
+  MatProgressBarModule, MatTooltipModule,
+  MatDialogModule
 } from '@angular/material';
 import {NavigationComponent} from './navigation/navigation.component';
 import {LayoutModule} from '@angular/cdk/layout';
@@ -47,6 +48,7 @@ import {ProjectListComponent} from './project-list/project-list.component';
 import {ProjectComponent} from './project-list/project/project.component';
 import {NetworkChartComponent} from './network-chart/network-chart.component';
 import {HighchartsChartModule} from "highcharts-angular";
+import {DialogInfoComponent} from './dialog-info/dialog-info.component';
 
 
 // For more icons, please checkout https://fontawesome.com/icons?d=gallery
@@ -73,6 +75,7 @@ library.add(faAngular);
     ProjectListComponent,
     ProjectComponent,
     NetworkChartComponent,
+    DialogInfoComponent,
   ],
   imports: [
     BrowserModule,
@@ -100,6 +103,7 @@ library.add(faAngular);
     MatTableModule,
     MatProgressSpinnerModule,
     MatPaginatorModule,
+    MatDialogModule,
     AgmCoreModule.forRoot({apiKey: 'AIzaSyBrgp24CvFV3M0PZGByVDVEG0qn56k8Y-g'})
   ],
   providers: [
@@ -107,7 +111,8 @@ library.add(faAngular);
       provide: HTTP_INTERCEPTORS, useClass: ErrorRequestInterceptor, multi: true
     }
   ],
-  bootstrap: [AppComponent]
+  bootstrap: [AppComponent],
+  entryComponents: [DialogInfoComponent]
 })
 export class AppModule {
 }
