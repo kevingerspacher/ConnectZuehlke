@@ -8,9 +8,10 @@
       </div>
       <div style="margin-left: 20%; margin-top: 20px">
         <div>Durchschnittlicher Job-Verweildauer: {{ employee.id }}</div>
-        <div>Teamstimmung aktuelles Projekt</div>
+        <div>Teamstimmung aktuelles Projekt: {{employee.teamMoodScore}}</div>
         <div>Progress: {{employee.leavingPropability }}</div>
-        <div id="progress" class="graph"><div id="bar" style="width:75%"><p>{{employee.leavingPropability }}%</p></div></div>
+        <div id="progress" class="graph"><div id="bar" style="width:{{employee.leavingPropability}}%"><p>{{employee.leavingPropability }}%</p></div></div>
+        <div><button mat-button (click)="goToNetwork()">Show network</button></div>
       </div>
     </div>
 
