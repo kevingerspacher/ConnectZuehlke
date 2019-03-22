@@ -2,16 +2,20 @@ package ch.zuehlke.fullstack.ConnectZuehlke.service.calculation.component;
 
 import ch.zuehlke.fullstack.ConnectZuehlke.apis.insight.service.InsightCoworkerService;
 import ch.zuehlke.fullstack.ConnectZuehlke.domain.Employee;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.scheduling.annotation.AsyncResult;
 import org.springframework.stereotype.Component;
 
 import java.math.BigDecimal;
 import java.math.RoundingMode;
 import java.util.List;
+import java.util.concurrent.Future;
 
 @Component
 public class ColleagueLeaversCalculationPart implements CalculationPart {
-
+    private static Logger LOG = LoggerFactory.getLogger(ColleagueLeaversCalculationPart.class);
     private static final int MAX_SCORE = 2;
     // leavers are more important than other factors
     private static final BigDecimal WEIGHT = new BigDecimal(2);
@@ -20,22 +24,24 @@ public class ColleagueLeaversCalculationPart implements CalculationPart {
     private InsightCoworkerService coworkerService;
 
     @Override
-    public BigDecimal calculate(Employee employee) {
+    public Future<BigDecimal> calculate(Employee employee) {
+        LOG.info("calculating colleague leaver score");
         List<Employee> coworkers = coworkerService.getCoworkers(employee.getCode());
         List<Employee> leavers = coworkerService.getLeavers(coworkers);
 
         if (coworkers.size() == 0) {
             // avoid division by zero
             employee.setColleagueLeaversScore(BigDecimal.ZERO);
-            return employee.getColleagueLeaversScore();
+            return new AsyncResult<>(employee.getColleagueLeaversScore());
         }
 
         BigDecimal score = new BigDecimal(leavers.size())
                 .divide(new BigDecimal(coworkers.size()), 2, RoundingMode.HALF_UP)
                 .multiply(WEIGHT);
+
         employee.setColleagueLeaversScore(score);
 
-        return employee.getColleagueLeaversScore();
+        return new AsyncResult<>(employee.getColleagueLeaversScore());
     }
 
     @Override

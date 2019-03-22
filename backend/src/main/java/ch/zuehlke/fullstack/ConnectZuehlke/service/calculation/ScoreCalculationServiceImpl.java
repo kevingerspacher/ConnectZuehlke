@@ -12,8 +12,11 @@ import org.springframework.util.CollectionUtils;
 
 import java.math.BigDecimal;
 import java.math.RoundingMode;
+import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
+import java.util.concurrent.Future;
+import java.util.concurrent.TimeUnit;
 
 /**
  * Service for calculating leaver scores for employees.
@@ -58,40 +61,45 @@ public class ScoreCalculationServiceImpl implements ScoreCalculationService {
 
         try {
             // calculate score using calculationParts
-            BigDecimal leaverScore = BigDecimal.ZERO;
+            BigDecimal leaverScore;
             int maxScorePossible = 0;
+            List<Future<BigDecimal>> calculationResults = new ArrayList<>();
+
             for (CalculationPart part : calculationParts) {
 
                 // get the maximum score from the part
-                int maxPossibleScore = part.getMaxPossibleScore();
+                maxScorePossible += part.getMaxPossibleScore();
 
                 // get the score for the employee from the part
-                BigDecimal partScore = part.calculate(employee);
+                calculationResults.add(part.calculate(employee));
+            }
 
-                // validate: is the score higher than the maximum?
-                if (partScore.compareTo(new BigDecimal(maxPossibleScore)) > 0) {
-                    throw new ApplicationException("Score returned from CalculationPart is higher than the specified maximum score!");
-                }
+            leaverScore = calculationResults.parallelStream()
+                    .map(result -> {
+                        try {
+                            return result.get(1, TimeUnit.MINUTES);
+                        } catch (Exception e) {
+                            e.printStackTrace();
+                            return BigDecimal.ZERO;
+                        }
+                    })
+                    .reduce(BigDecimal::add)
+                    .orElse(BigDecimal.ZERO);
 
-                // increase the leaver score of the employee
-                leaverScore = leaverScore.add(partScore);
-
-                // increase the maximum score possible from all parts
-                maxScorePossible = maxScorePossible + maxPossibleScore;
+            // validate: is the score higher than the maximum?
+            if (leaverScore.compareTo(new BigDecimal(maxScorePossible)) > 0) {
+                throw new ApplicationException("Score returned from CalculationPart is higher than the specified maximum score!");
             }
 
             employee.setLeaverScore(leaverScore);
             employee.setLeavingPropability(calcLeavingProbability(leaverScore, maxScorePossible));
 
-        } catch (Exception e) {
+        } catch (ApplicationException e) {
             LOG.error("Error while calculating employee: ", employee);
             LOG.error(e.getMessage(), e);
-
-            if (e instanceof ApplicationException) {
-                // re-throw ApplicationExceptions, as these indicate a algorithm implementation error and must break the
-                // overall calculation
-                throw e;
-            }
+            throw e;
+        } catch (Exception e) {
+            LOG.error("This will never happen!", e);
         }
 
     }
