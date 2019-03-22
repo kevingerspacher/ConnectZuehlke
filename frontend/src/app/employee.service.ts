@@ -6,6 +6,7 @@ import {Employee} from './domain/Employee';
 
 @Injectable({providedIn: 'root'})
 export class EmployeeService {
+  private currentEmployee: Employee;
 
   constructor(private http: HttpClient) {
   }
@@ -59,5 +60,17 @@ export class EmployeeService {
   getAllCalculatedEmployees(employees: Employee[]): Observable<Employee[]> {
     return this.http.put<Employee[]>('/api/employee/calculate', employees)
       .pipe(catchError(this.handleError('getAllCalculatedEmployees', [])));
+  }
+
+  setCurrentEmployee(employee: Employee){
+    this.currentEmployee = employee;
+  }
+
+  getCurrentEmployee() {
+    return this.currentEmployee;
+  }
+
+  calculateEmployeeByCode(code: string): Observable<Employee>{
+    return this.http.get<Employee>('/api/employee/calculate/' + code);
   }
 }

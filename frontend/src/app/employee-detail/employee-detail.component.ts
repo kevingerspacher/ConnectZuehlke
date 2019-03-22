@@ -1,8 +1,6 @@
 import {Component, OnInit} from '@angular/core';
-import {Observable} from 'rxjs';
 import {Employee} from '../domain/Employee';
-import {switchMap} from 'rxjs/operators';
-import {ActivatedRoute, ParamMap, Router} from '@angular/router';
+import {ActivatedRoute, Router} from '@angular/router';
 import {EmployeeService} from '../employee.service';
 
 @Component({
@@ -11,7 +9,7 @@ import {EmployeeService} from '../employee.service';
   styleUrls: ['./employee-detail.component.scss']
 })
 export class EmployeeDetailComponent implements OnInit {
-  employee$: Observable<Employee>;
+  employee: Employee;
 
   constructor(
     private route: ActivatedRoute,
@@ -20,18 +18,18 @@ export class EmployeeDetailComponent implements OnInit {
   ) {
   }
 
-  private code: string;
-
   ngOnInit() {
-    this.employee$ = this.route.paramMap.pipe(
-      switchMap((params: ParamMap) => {
-        this.code = params.get('code');
-        return this.service.getEmployee(this.code);
+    this.employee = this.service.getCurrentEmployee();
+    if (!this.employee) {
+      this.service.calculateEmployeeByCode(this.route.snapshot.paramMap.get('code')).subscribe(employee => {
+        console.log(employee);
+        this.employee = employee;
       })
-    );
+    }
   }
 
-  goToNetwork(){
-    this.router.navigate([`/network-chart/${this.code}`]);  }
+  goToNetwork() {
+    this.router.navigate([`/network-chart/${this.employee.code}`]);
+  }
 
 }
