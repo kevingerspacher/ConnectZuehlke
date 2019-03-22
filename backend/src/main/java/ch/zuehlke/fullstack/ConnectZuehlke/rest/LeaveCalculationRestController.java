@@ -16,7 +16,7 @@ public class LeaveCalculationRestController {
         this.scoreCalculationService = scoreCalculationService;
     }
 
-    @PutMapping("/api/calculate")
+    @PutMapping("/api/employee/calculate")
     public List<Employee> getAllCalculatedEmployees(@RequestBody List<Employee> employees) {
         return scoreCalculationService.calculateEmployees(employees);
     }
