@@ -22,9 +22,9 @@
       </td>
     </ng-container>
 
-    <ng-container matColumnDef="leavingProbability">
+    <ng-container matColumnDef="leavingPropability">
       <th mat-header-cell *matHeaderCellDef class="table_font_size">Leave Probability</th>
-      <td mat-cell *matCellDef="let employee" class="table_font_size">{{employee.leavingProbability}}</td>
+      <td mat-cell *matCellDef="let employee" class="table_font_size">{{employee.leavingPropability | percent}}</td>
     </ng-container>
 
     <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>

@@ -12,7 +12,7 @@ import {MatPaginator, MatTableDataSource, PageEvent} from "@angular/material";
 })
 
 export class EmployeeTableComponent implements OnInit {
-  displayedColumns: string[] = ['image', 'name', 'leavingProbability'];
+  displayedColumns: string[] = ['image', 'name', 'leavingPropability'];
   datasource: MatTableDataSource<Employee>;
 
   constructor(private employeeService: EmployeeService, private router: Router) {
@@ -34,13 +34,24 @@ export class EmployeeTableComponent implements OnInit {
     this.datasource.paginator.page.subscribe((pageEvent: PageEvent) => {
       const startIndex = pageEvent.pageIndex * pageEvent.pageSize;
       const endIndex = startIndex + pageEvent.pageSize;
-      const itemsShowed = this.datasource.filteredData.slice(startIndex, endIndex);
-      //console.log(itemsShowed);
-      this.employeeService.getAllCalculatedEmployees(itemsShowed).subscribe((emp) => {
-        this.datasource = new MatTableDataSource(emp);
-        console.log(emp);
-      });
+      const itemsShown = this.datasource.filteredData.slice(startIndex, endIndex);
+
+      this.calculateLeaveProbability(itemsShown, startIndex);
     });
+  }
+
+  private calculateLeaveProbability(itemsShown: Employee[], startIndex: number){
+    itemsShown.forEach(function (employee) {
+      if(employee.leavingPropability){
+        return;
+      }
+    });
+    console.log("continue.");
+    this.employeeService.getAllCalculatedEmployees(itemsShown).subscribe((employee) => {
+      for (let i = 0; i < employee.length; i++) {
+        this.datasource.data[startIndex + i] = employee[i];
+      }
+      });
   }
 
   private getEmployees() {
@@ -51,7 +62,6 @@ export class EmployeeTableComponent implements OnInit {
       this.datasource.paginator = this.paginator;
       this.getVisibleEmployees();
     });
-
   }
 
   applyFilter(filterValue: string) {

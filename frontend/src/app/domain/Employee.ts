@@ -3,5 +3,5 @@ export interface Employee {
   lastName: string;
   id: number;
   code: string;
-  leavingProbability :number;
+  leavingPropability :number;
 }
