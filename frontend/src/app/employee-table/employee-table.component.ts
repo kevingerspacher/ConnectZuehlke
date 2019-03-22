@@ -25,8 +25,8 @@ export class EmployeeTableComponent implements OnInit {
     this.getEmployees();
   }
 
-  goToEmployeePage(employee: Employee)
-  {
+  goToEmployeePage(employee: Employee) {
+    this.employeeService.setCurrentEmployee(employee);
     this.router.navigate([`/employee/${employee.code}`]);
   }
 
@@ -41,7 +41,7 @@ export class EmployeeTableComponent implements OnInit {
   //   });
   // }
 
-  private calculateProbability(employee: Employee){
+  private calculateProbability(employee: Employee) {
     this.calculateFlag[employee.code] = true;
     const index = this.datasource.data.indexOf(employee);
     this.employeeService.getAllCalculatedEmployees([employee]).subscribe((employee) => {
@@ -69,8 +69,7 @@ export class EmployeeTableComponent implements OnInit {
 
   private getEmployees() {
     this.employeeService
-      .getAllEmployees().
-      subscribe(employees => {
+      .getAllEmployees().subscribe(employees => {
       this.datasource = new MatTableDataSource(employees);
       this.datasource.paginator = this.paginator;
       employees.map(employee => this.calculateFlag.set(employee.code, false));

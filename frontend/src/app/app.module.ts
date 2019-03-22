@@ -29,6 +29,7 @@ import {
   MatToolbarModule,
   MatTableModule,
   MatPaginatorModule,
+  MatProgressBarModule, MatTooltipModule,
   MatDialogModule
 } from '@angular/material';
 import {NavigationComponent} from './navigation/navigation.component';
@@ -92,6 +93,8 @@ library.add(faAngular);
     MatButtonModule,
     MatSelectModule,
     MatIconModule,
+    MatProgressBarModule,
+    MatTooltipModule,
     MatSnackBarModule,
     LayoutModule,
     MatToolbarModule,
