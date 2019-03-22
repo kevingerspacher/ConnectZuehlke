@@ -35,7 +35,7 @@ public class TeamMoodCalculationPart implements CalculationPart {
         if (currentProjects.size() == 0) {
             // avoid division by zero
             employee.setTeamMoodScore(BigDecimal.ZERO);
-            return employee.getTeamMoodScore();
+            return new AsyncResult<>(employee.getTeamMoodScore());
         }
 
         BigDecimal score = new BigDecimal(totalMood)
