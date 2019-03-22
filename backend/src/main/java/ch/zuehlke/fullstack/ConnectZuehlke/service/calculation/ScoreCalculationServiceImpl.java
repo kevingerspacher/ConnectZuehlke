@@ -77,7 +77,7 @@ public class ScoreCalculationServiceImpl implements ScoreCalculationService {
             leaverScore = calculationResults.parallelStream()
                     .map(result -> {
                         try {
-                            return result.get(1, TimeUnit.MINUTES);
+                            return result.get(2, TimeUnit.MINUTES);
                         } catch (Exception e) {
                             e.printStackTrace();
                             return BigDecimal.ZERO;
